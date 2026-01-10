@@ -1,0 +1,1301 @@
+{
+  "package": {
+    "name": "page_navigation_transition",
+    "version": "1.0.0",
+    "description": "A comprehensive Flutter package providing 100+ beautiful page navigation transitions",
+    "totalTransitions": 101
+  },
+  "categories": [
+    {
+      "id": "slide",
+      "name": "Slide Transitions",
+      "description": "Transitions that slide pages in from various directions",
+      "icon": "swap_horiz",
+      "color": "#3B82F6",
+      "transitions": [
+        {
+          "name": "SlidePageTransition",
+          "displayName": "Slide",
+          "description": "Basic slide from any direction",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "300ms"},
+            {"name": "curve", "type": "Curve", "default": "easeInOut"}
+          ],
+          "usage": "SlidePageTransition(page: NextPage(), direction: SlideDirection.fromRight)"
+        },
+        {
+          "name": "PushPageTransition",
+          "displayName": "Push",
+          "description": "Push transition where both pages move together",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "PushPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CoverPageTransition",
+          "displayName": "Cover",
+          "description": "New page covers the old one",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "CoverPageTransition(page: NextPage())"
+        },
+        {
+          "name": "RevealPageTransition",
+          "displayName": "Reveal",
+          "description": "Old page slides away to reveal the new one",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "RevealPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ParallaxPageTransition",
+          "displayName": "Parallax",
+          "description": "Parallax effect during page transition",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "parallaxFactor", "type": "double", "default": "0.3"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ParallaxPageTransition(page: NextPage(), parallaxFactor: 0.3)"
+        },
+        {
+          "name": "SlideFadePageTransition",
+          "displayName": "Slide + Fade",
+          "description": "Slide combined with fade effect",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "slideDistance", "type": "double", "default": "0.3"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SlideFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "SlideScalePageTransition",
+          "displayName": "Slide + Scale",
+          "description": "Slide combined with scale effect",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "beginScale", "type": "double", "default": "0.8"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SlideScalePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ElasticSlidePageTransition",
+          "displayName": "Elastic Slide",
+          "description": "Slide with elastic overshoot effect",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"}
+          ],
+          "usage": "ElasticSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "BouncySlidePageTransition",
+          "displayName": "Bouncy Slide",
+          "description": "Slide with bouncy effect at the end",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"}
+          ],
+          "usage": "BouncySlidePageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "fade",
+      "name": "Fade Transitions",
+      "description": "Transitions using opacity and fade effects",
+      "icon": "blur_on",
+      "color": "#8B5CF6",
+      "transitions": [
+        {
+          "name": "FadePageTransition",
+          "displayName": "Fade",
+          "description": "Simple fade in transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"},
+            {"name": "curve", "type": "Curve", "default": "easeInOut"}
+          ],
+          "usage": "FadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "FadeScalePageTransition",
+          "displayName": "Fade + Scale",
+          "description": "Fade combined with scale effect",
+          "parameters": [
+            {"name": "beginScale", "type": "double", "default": "0.8"},
+            {"name": "scaleAlignment", "type": "Alignment", "default": "center"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeScalePageTransition(page: NextPage(), beginScale: 0.8)"
+        },
+        {
+          "name": "FadeRotationPageTransition",
+          "displayName": "Fade + Rotation",
+          "description": "Fade combined with rotation effect",
+          "parameters": [
+            {"name": "beginTurns", "type": "double", "default": "0.5"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "FadeRotationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "FadeSlidePageTransition",
+          "displayName": "Fade + Slide",
+          "description": "Fade combined with slide effect",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromBottom"},
+            {"name": "slideDistance", "type": "double", "default": "0.3"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "FadeThroughPageTransition",
+          "displayName": "Fade Through",
+          "description": "Material Design fade through pattern",
+          "parameters": [
+            {"name": "includeScale", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeThroughPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CrossFadePageTransition",
+          "displayName": "Cross Fade",
+          "description": "Cross fade between old and new pages",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "CrossFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "FadeZoomInPageTransition",
+          "displayName": "Fade Zoom In",
+          "description": "Fade with zoom in effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeZoomInPageTransition(page: NextPage())"
+        },
+        {
+          "name": "FadeZoomOutPageTransition",
+          "displayName": "Fade Zoom Out",
+          "description": "Fade with zoom out effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeZoomOutPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "scale",
+      "name": "Scale Transitions",
+      "description": "Transitions using scale and zoom effects",
+      "icon": "zoom_out_map",
+      "color": "#EC4899",
+      "transitions": [
+        {
+          "name": "ScalePageTransition",
+          "displayName": "Scale",
+          "description": "Scale from a specified origin",
+          "parameters": [
+            {"name": "origin", "type": "ScaleOrigin", "default": "center"},
+            {"name": "beginScale", "type": "double", "default": "0.0"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ScalePageTransition(page: NextPage(), origin: ScaleOrigin.center)"
+        },
+        {
+          "name": "ScaleFadePageTransition",
+          "displayName": "Scale + Fade",
+          "description": "Scale combined with fade effect",
+          "parameters": [
+            {"name": "origin", "type": "ScaleOrigin", "default": "center"},
+            {"name": "beginScale", "type": "double", "default": "0.8"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ScaleFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ShrinkGrowPageTransition",
+          "displayName": "Shrink & Grow",
+          "description": "Old page shrinks while new page grows",
+          "parameters": [
+            {"name": "minScale", "type": "double", "default": "0.5"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ShrinkGrowPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ZoomInPageTransition",
+          "displayName": "Zoom In",
+          "description": "Zoom in from small to full size",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ZoomInPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ZoomOutPageTransition",
+          "displayName": "Zoom Out",
+          "description": "Zoom from large to normal size",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ZoomOutPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ZoomInFadePageTransition",
+          "displayName": "Zoom In + Fade",
+          "description": "Zoom in with fade effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ZoomInFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ZoomOutFadePageTransition",
+          "displayName": "Zoom Out + Fade",
+          "description": "Zoom out with fade effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ZoomOutFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "PopScalePageTransition",
+          "displayName": "Pop Scale",
+          "description": "Pop effect with elastic overshoot",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "PopScalePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ScaleRotationPageTransition",
+          "displayName": "Scale + Rotation",
+          "description": "Scale combined with rotation",
+          "parameters": [
+            {"name": "beginScale", "type": "double", "default": "0.0"},
+            {"name": "beginTurns", "type": "double", "default": "0.5"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ScaleRotationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "DepthScalePageTransition",
+          "displayName": "Depth Scale",
+          "description": "3D depth scale effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "DepthScalePageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "rotation",
+      "name": "Rotation Transitions",
+      "description": "Transitions using 2D and 3D rotation effects",
+      "icon": "rotate_right",
+      "color": "#F59E0B",
+      "transitions": [
+        {
+          "name": "RotationPageTransition",
+          "displayName": "Rotation",
+          "description": "Full rotation transition",
+          "parameters": [
+            {"name": "beginTurns", "type": "double", "default": "1.0"},
+            {"name": "alignment", "type": "Alignment", "default": "center"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "RotationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "FlipHorizontalPageTransition",
+          "displayName": "Flip Horizontal",
+          "description": "3D horizontal flip around Y axis",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "FlipHorizontalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "FlipVerticalPageTransition",
+          "displayName": "Flip Vertical",
+          "description": "3D vertical flip around X axis",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "FlipVerticalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "RotationFadePageTransition",
+          "displayName": "Rotation + Fade",
+          "description": "Rotation combined with fade effect",
+          "parameters": [
+            {"name": "beginTurns", "type": "double", "default": "0.5"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "RotationFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "RotationScalePageTransition",
+          "displayName": "Rotation + Scale",
+          "description": "Rotation combined with scale effect",
+          "parameters": [
+            {"name": "beginTurns", "type": "double", "default": "1.0"},
+            {"name": "beginScale", "type": "double", "default": "0.0"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "RotationScalePageTransition(page: NextPage())"
+        },
+        {
+          "name": "RotationScaleFadePageTransition",
+          "displayName": "Rotation + Scale + Fade",
+          "description": "Rotation with scale and fade effects",
+          "parameters": [
+            {"name": "beginTurns", "type": "double", "default": "0.5"},
+            {"name": "beginScale", "type": "double", "default": "0.5"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "RotationScaleFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "SpinPageTransition",
+          "displayName": "Spin",
+          "description": "Spin entrance animation",
+          "parameters": [
+            {"name": "rotations", "type": "int", "default": "1"},
+            {"name": "elastic", "type": "bool", "default": "false"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "SpinPageTransition(page: NextPage(), rotations: 1)"
+        },
+        {
+          "name": "TiltRotationPageTransition",
+          "displayName": "Tilt Rotation",
+          "description": "3D tilt effect during transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "TiltRotationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "DoorRotationPageTransition",
+          "displayName": "Door Rotation",
+          "description": "Door opening effect",
+          "parameters": [
+            {"name": "openFromLeft", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "DoorRotationPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "size",
+      "name": "Size Transitions",
+      "description": "Transitions using size and clip animations",
+      "icon": "aspect_ratio",
+      "color": "#10B981",
+      "transitions": [
+        {
+          "name": "SizePageTransition",
+          "displayName": "Size",
+          "description": "Size-based transition",
+          "parameters": [
+            {"name": "axis", "type": "Axis", "default": "vertical"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SizePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ExpandHorizontalPageTransition",
+          "displayName": "Expand Horizontal",
+          "description": "Expand from left to right",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ExpandHorizontalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ExpandVerticalPageTransition",
+          "displayName": "Expand Vertical",
+          "description": "Expand from top to bottom",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ExpandVerticalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ExpandFromCenterPageTransition",
+          "displayName": "Expand from Center",
+          "description": "Expand from center outward",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ExpandFromCenterPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ClipRectPageTransition",
+          "displayName": "Clip Rect",
+          "description": "Clip rectangle reveal transition",
+          "parameters": [
+            {"name": "direction", "type": "ExpandDirection", "default": "leftToRight"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ClipRectPageTransition(page: NextPage())"
+        },
+        {
+          "name": "AlignSizePageTransition",
+          "displayName": "Align Size",
+          "description": "Aligned size transition",
+          "parameters": [
+            {"name": "alignment", "type": "Alignment", "default": "topLeft"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "AlignSizePageTransition(page: NextPage())"
+        },
+        {
+          "name": "UnfoldPageTransition",
+          "displayName": "Unfold",
+          "description": "Unfold from corner",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "UnfoldPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SplitPageTransition",
+          "displayName": "Split",
+          "description": "Split screen reveal transition",
+          "parameters": [
+            {"name": "horizontal", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "SplitPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "material",
+      "name": "Material Transitions",
+      "description": "Material Design motion patterns",
+      "icon": "android",
+      "color": "#06B6D4",
+      "transitions": [
+        {
+          "name": "SharedAxisPageTransition",
+          "displayName": "Shared Axis",
+          "description": "Material shared axis transition pattern",
+          "parameters": [
+            {"name": "direction", "type": "SharedAxisDirection", "default": "horizontal"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SharedAxisPageTransition(page: NextPage(), direction: SharedAxisDirection.horizontal)"
+        },
+        {
+          "name": "FadeThroughMaterialPageTransition",
+          "displayName": "Fade Through (Material)",
+          "description": "Material fade through pattern",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FadeThroughMaterialPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ContainerTransformPageTransition",
+          "displayName": "Container Transform",
+          "description": "Material container transform pattern",
+          "parameters": [
+            {"name": "containerColor", "type": "Color", "default": "white"},
+            {"name": "beginRadius", "type": "double", "default": "16.0"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ContainerTransformPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ElevationScalePageTransition",
+          "displayName": "Elevation Scale",
+          "description": "Elevation change with scale effect",
+          "parameters": [
+            {"name": "beginElevation", "type": "double", "default": "0.0"},
+            {"name": "endElevation", "type": "double", "default": "8.0"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "ElevationScalePageTransition(page: NextPage())"
+        },
+        {
+          "name": "MaterialPageTransition",
+          "displayName": "Material",
+          "description": "Standard Material page transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "MaterialPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "ios",
+      "name": "iOS Transitions",
+      "description": "iOS and Cupertino-style transitions",
+      "icon": "apple",
+      "color": "#64748B",
+      "transitions": [
+        {
+          "name": "CupertinoSlidePageTransition",
+          "displayName": "Cupertino Slide",
+          "description": "iOS default slide transition",
+          "parameters": [
+            {"name": "parallaxFactor", "type": "double", "default": "0.3"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "CupertinoSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "ModalSlidePageTransition",
+          "displayName": "Modal Slide",
+          "description": "iOS modal presentation style",
+          "parameters": [
+            {"name": "borderRadius", "type": "double", "default": "12.0"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ModalSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "PageCurlPageTransition",
+          "displayName": "Page Curl",
+          "description": "Page curl effect like turning a book",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "PageCurlPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SheetPageTransition",
+          "displayName": "Sheet",
+          "description": "Bottom sheet style transition",
+          "parameters": [
+            {"name": "heightFactor", "type": "double", "default": "0.9"},
+            {"name": "isDismissible", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SheetPageTransition(page: NextPage(), heightFactor: 0.9)"
+        },
+        {
+          "name": "FullscreenModalPageTransition",
+          "displayName": "Fullscreen Modal",
+          "description": "iOS fullscreen modal transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "FullscreenModalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "AppStoreCardPageTransition",
+          "displayName": "App Store Card",
+          "description": "App Store card expansion effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "AppStoreCardPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "threed",
+      "name": "3D Transitions",
+      "description": "3D perspective and depth effects",
+      "icon": "view_in_ar",
+      "color": "#EF4444",
+      "transitions": [
+        {
+          "name": "CubeHorizontalPageTransition",
+          "displayName": "Cube Horizontal",
+          "description": "3D cube rotation on X axis",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CubeHorizontalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CubeVerticalPageTransition",
+          "displayName": "Cube Vertical",
+          "description": "3D cube rotation on Y axis",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CubeVerticalPageTransition(page: NextPage())"
+        },
+        {
+          "name": "InsideCubePageTransition",
+          "displayName": "Inside Cube",
+          "description": "View from inside a rotating cube",
+          "parameters": [
+            {"name": "horizontal", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "InsideCubePageTransition(page: NextPage())"
+        },
+        {
+          "name": "CardFlipPageTransition",
+          "displayName": "Card Flip",
+          "description": "3D card flip effect",
+          "parameters": [
+            {"name": "horizontal", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "CardFlipPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CarouselPageTransition",
+          "displayName": "Carousel",
+          "description": "Carousel rotation effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CarouselPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CoverFlowPageTransition",
+          "displayName": "Cover Flow",
+          "description": "iTunes-style cover flow effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CoverFlowPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CylinderWrapPageTransition",
+          "displayName": "Cylinder Wrap",
+          "description": "Cylindrical wrap around effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CylinderWrapPageTransition(page: NextPage())"
+        },
+        {
+          "name": "PerspectiveZoomPageTransition",
+          "displayName": "Perspective Zoom",
+          "description": "Perspective zoom with depth",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "PerspectiveZoomPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ParallaxDepthPageTransition",
+          "displayName": "Parallax Depth",
+          "description": "3D parallax depth effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "ParallaxDepthPageTransition(page: NextPage())"
+        },
+        {
+          "name": "FoldPageTransition",
+          "displayName": "Fold",
+          "description": "Paper fold effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "FoldPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "physics",
+      "name": "Physics Transitions",
+      "description": "Physics-based animations",
+      "icon": "sports_basketball",
+      "color": "#F97316",
+      "transitions": [
+        {
+          "name": "SpringPageTransition",
+          "displayName": "Spring",
+          "description": "Spring physics animation",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "SpringPageTransition(page: NextPage())"
+        },
+        {
+          "name": "GravityDropPageTransition",
+          "displayName": "Gravity Drop",
+          "description": "Gravity drop effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "GravityDropPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ElasticBouncePageTransition",
+          "displayName": "Elastic Bounce",
+          "description": "Elastic bounce entrance",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "800ms"}
+          ],
+          "usage": "ElasticBouncePageTransition(page: NextPage())"
+        },
+        {
+          "name": "DampedOscillationPageTransition",
+          "displayName": "Damped Oscillation",
+          "description": "Damped oscillation effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "700ms"}
+          ],
+          "usage": "DampedOscillationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "InertiaSlidePageTransition",
+          "displayName": "Inertia Slide",
+          "description": "Inertia-based slide",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "InertiaSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "RubberBandPageTransition",
+          "displayName": "Rubber Band",
+          "description": "Rubber band stretch effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "RubberBandPageTransition(page: NextPage())"
+        },
+        {
+          "name": "PendulumPageTransition",
+          "displayName": "Pendulum",
+          "description": "Pendulum swing effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "PendulumPageTransition(page: NextPage())"
+        },
+        {
+          "name": "OverScrollBouncePageTransition",
+          "displayName": "Over-Scroll Bounce",
+          "description": "Over-scroll with bounce back",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromRight"},
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "OverScrollBouncePageTransition(page: NextPage())"
+        },
+        {
+          "name": "SpringReboundPageTransition",
+          "displayName": "Spring Rebound",
+          "description": "Spring rebound effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "SpringReboundPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "name": "Custom Transitions",
+      "description": "Unique custom effect transitions",
+      "icon": "auto_awesome",
+      "color": "#7C3AED",
+      "transitions": [
+        {
+          "name": "CircularRevealPageTransition",
+          "displayName": "Circular Reveal",
+          "description": "Circular reveal from a center point",
+          "parameters": [
+            {"name": "center", "type": "Alignment", "default": "center"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "CircularRevealPageTransition(page: NextPage(), center: Alignment.center)"
+        },
+        {
+          "name": "BlurPageTransition",
+          "displayName": "Blur",
+          "description": "Blur transition effect",
+          "parameters": [
+            {"name": "maxBlur", "type": "double", "default": "10.0"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "BlurPageTransition(page: NextPage(), maxBlur: 10.0)"
+        },
+        {
+          "name": "GlitchPageTransition",
+          "displayName": "Glitch",
+          "description": "Digital glitch effect",
+          "parameters": [
+            {"name": "intensity", "type": "double", "default": "1.0"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "GlitchPageTransition(page: NextPage())"
+        },
+        {
+          "name": "AccordionPageTransition",
+          "displayName": "Accordion",
+          "description": "Accordion fold effect",
+          "parameters": [
+            {"name": "folds", "type": "int", "default": "4"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "AccordionPageTransition(page: NextPage())"
+        },
+        {
+          "name": "BookFlipPageTransition",
+          "displayName": "Book Flip",
+          "description": "Book page flip effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "BookFlipPageTransition(page: NextPage())"
+        },
+        {
+          "name": "StackDepthPageTransition",
+          "displayName": "Stack Depth",
+          "description": "Stack depth effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "StackDepthPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ShutterPageTransition",
+          "displayName": "Shutter",
+          "description": "Camera shutter effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "ShutterPageTransition(page: NextPage())"
+        },
+        {
+          "name": "WipePageTransition",
+          "displayName": "Wipe",
+          "description": "Wipe reveal effect",
+          "parameters": [
+            {"name": "shape", "type": "WipeShape", "default": "horizontal"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "WipePageTransition(page: NextPage())"
+        },
+        {
+          "name": "SpotlightPageTransition",
+          "displayName": "Spotlight",
+          "description": "Spotlight reveal effect",
+          "parameters": [
+            {"name": "spotlightPosition", "type": "Alignment", "default": "center"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "SpotlightPageTransition(page: NextPage())"
+        },
+        {
+          "name": "PixelatePageTransition",
+          "displayName": "Pixelate",
+          "description": "Pixelation effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "PixelatePageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "modern",
+      "name": "Modern Transitions",
+      "description": "Modern UI design transitions",
+      "icon": "blur_circular",
+      "color": "#0EA5E9",
+      "transitions": [
+        {
+          "name": "GlassmorphismPageTransition",
+          "displayName": "Glassmorphism",
+          "description": "Frosted glass effect",
+          "parameters": [
+            {"name": "maxBlur", "type": "double", "default": "15.0"},
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "GlassmorphismPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SlidingGlassPanelsPageTransition",
+          "displayName": "Sliding Glass Panels",
+          "description": "Glass panel slide effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "SlidingGlassPanelsPageTransition(page: NextPage())"
+        },
+        {
+          "name": "LiquidSwipePageTransition",
+          "displayName": "Liquid Swipe",
+          "description": "Liquid swipe effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "LiquidSwipePageTransition(page: NextPage())"
+        },
+        {
+          "name": "WavyEdgePageTransition",
+          "displayName": "Wavy Edge",
+          "description": "Wavy edge reveal",
+          "parameters": [
+            {"name": "waveFrequency", "type": "double", "default": "3.0"},
+            {"name": "waveAmplitude", "type": "double", "default": "40.0"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "WavyEdgePageTransition(page: NextPage())"
+        },
+        {
+          "name": "GooeyPageTransition",
+          "displayName": "Gooey",
+          "description": "Gooey blob effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "600ms"}
+          ],
+          "usage": "GooeyPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SplashRevealPageTransition",
+          "displayName": "Splash Reveal",
+          "description": "Splash reveal effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "SplashRevealPageTransition(page: NextPage())"
+        },
+        {
+          "name": "NeumorphismPageTransition",
+          "displayName": "Neumorphism",
+          "description": "Soft UI transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "NeumorphismPageTransition(page: NextPage())"
+        },
+        {
+          "name": "BubbleInflatePageTransition",
+          "displayName": "Bubble Inflate",
+          "description": "Bubble inflate effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "BubbleInflatePageTransition(page: NextPage())"
+        },
+        {
+          "name": "CurtainRevealPageTransition",
+          "displayName": "Curtain Reveal",
+          "description": "Curtain opening effect",
+          "parameters": [
+            {"name": "horizontal", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "500ms"}
+          ],
+          "usage": "CurtainRevealPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "name": "Social Transitions",
+      "description": "Social media app inspired transitions",
+      "icon": "photo_camera",
+      "color": "#E11D48",
+      "transitions": [
+        {
+          "name": "StoryPageTransition",
+          "displayName": "Story",
+          "description": "Instagram stories style",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "StoryPageTransition(page: NextPage())"
+        },
+        {
+          "name": "ReelsPageTransition",
+          "displayName": "Reels",
+          "description": "Instagram reels swipe",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "200ms"}
+          ],
+          "usage": "ReelsPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SnapPageTransition",
+          "displayName": "Snap",
+          "description": "Snapchat/TikTok style",
+          "parameters": [
+            {"name": "direction", "type": "SlideDirection", "default": "fromBottom"},
+            {"name": "duration", "type": "Duration", "default": "150ms"}
+          ],
+          "usage": "SnapPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SlideWithBouncePageTransition",
+          "displayName": "Slide with Bounce",
+          "description": "Slide with bounce effect",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "SlideWithBouncePageTransition(page: NextPage())"
+        },
+        {
+          "name": "FlashPageTransition",
+          "displayName": "Flash",
+          "description": "Camera flash effect",
+          "parameters": [
+            {"name": "flashColor", "type": "Color", "default": "white"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "FlashPageTransition(page: NextPage())"
+        },
+        {
+          "name": "CrossFadeAudioPageTransition",
+          "displayName": "Cross Fade Audio",
+          "description": "Spotify-like cross fade",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "CrossFadeAudioPageTransition(page: NextPage())"
+        },
+        {
+          "name": "AlbumArtExpandPageTransition",
+          "displayName": "Album Art Expand",
+          "description": "Album art expansion",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "AlbumArtExpandPageTransition(page: NextPage())"
+        },
+        {
+          "name": "NowPlayingSlidePageTransition",
+          "displayName": "Now Playing Slide",
+          "description": "Music player slide",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "NowPlayingSlidePageTransition(page: NextPage())"
+        },
+        {
+          "name": "SwipeCardPageTransition",
+          "displayName": "Swipe Card",
+          "description": "Tinder-like swipe",
+          "parameters": [
+            {"name": "swipeRight", "type": "bool", "default": "true"},
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "SwipeCardPageTransition(page: NextPage())"
+        },
+        {
+          "name": "PullToDismissPageTransition",
+          "displayName": "Pull to Dismiss",
+          "description": "Pull down to dismiss",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "PullToDismissPageTransition(page: NextPage())"
+        },
+        {
+          "name": "StackedCardsPageTransition",
+          "displayName": "Stacked Cards",
+          "description": "Card stack animation",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "400ms"}
+          ],
+          "usage": "StackedCardsPageTransition(page: NextPage())"
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "name": "Accessibility Transitions",
+      "description": "Accessibility-friendly reduced motion transitions",
+      "icon": "accessibility_new",
+      "color": "#14B8A6",
+      "transitions": [
+        {
+          "name": "NoAnimationPageTransition",
+          "displayName": "No Animation",
+          "description": "Instant transition without animation",
+          "parameters": [],
+          "usage": "NoAnimationPageTransition(page: NextPage())"
+        },
+        {
+          "name": "SimpleFadePageTransition",
+          "displayName": "Simple Fade",
+          "description": "Quick, subtle fade",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "150ms"}
+          ],
+          "usage": "SimpleFadePageTransition(page: NextPage())"
+        },
+        {
+          "name": "MinimalMovementPageTransition",
+          "displayName": "Minimal Movement",
+          "description": "Reduced motion transition",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "200ms"}
+          ],
+          "usage": "MinimalMovementPageTransition(page: NextPage())"
+        },
+        {
+          "name": "OpacityOnlyPageTransition",
+          "displayName": "Opacity Only",
+          "description": "Opacity change only, no movement",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "200ms"}
+          ],
+          "usage": "OpacityOnlyPageTransition(page: NextPage())"
+        },
+        {
+          "name": "TransformOnlyPageTransition",
+          "displayName": "Transform Only",
+          "description": "Simple transform without fade",
+          "parameters": [
+            {"name": "duration", "type": "Duration", "default": "200ms"}
+          ],
+          "usage": "TransformOnlyPageTransition(page: NextPage())"
+        },
+        {
+          "name": "AdaptivePageTransition",
+          "displayName": "Adaptive",
+          "description": "Respects system reduce motion settings",
+          "parameters": [
+            {"name": "normalDuration", "type": "Duration", "default": "300ms"}
+          ],
+          "usage": "AdaptivePageTransition(page: NextPage())"
+        },
+        {
+          "name": "FastSnapPageTransition",
+          "displayName": "Fast Snap",
+          "description": "Ultra-fast transition",
+          "parameters": [],
+          "usage": "FastSnapPageTransition(page: NextPage())"
+        }
+      ]
+    }
+  ],
+  "enums": {
+    "SlideDirection": {
+      "description": "Direction for slide transitions",
+      "values": [
+        {"name": "fromRight", "description": "Slide from right to left"},
+        {"name": "fromLeft", "description": "Slide from left to right"},
+        {"name": "fromTop", "description": "Slide from top to bottom"},
+        {"name": "fromBottom", "description": "Slide from bottom to top"},
+        {"name": "fromTopRight", "description": "Slide from top-right diagonal"},
+        {"name": "fromTopLeft", "description": "Slide from top-left diagonal"},
+        {"name": "fromBottomRight", "description": "Slide from bottom-right diagonal"},
+        {"name": "fromBottomLeft", "description": "Slide from bottom-left diagonal"}
+      ]
+    },
+    "ScaleOrigin": {
+      "description": "Origin point for scale transitions",
+      "values": [
+        {"name": "center", "description": "Scale from center"},
+        {"name": "topLeft", "description": "Scale from top-left corner"},
+        {"name": "topRight", "description": "Scale from top-right corner"},
+        {"name": "bottomLeft", "description": "Scale from bottom-left corner"},
+        {"name": "bottomRight", "description": "Scale from bottom-right corner"},
+        {"name": "topCenter", "description": "Scale from top-center"},
+        {"name": "bottomCenter", "description": "Scale from bottom-center"},
+        {"name": "centerLeft", "description": "Scale from center-left"},
+        {"name": "centerRight", "description": "Scale from center-right"}
+      ]
+    },
+    "RotationAxis": {
+      "description": "Axis for rotation transitions",
+      "values": [
+        {"name": "x", "description": "Rotate around X axis"},
+        {"name": "y", "description": "Rotate around Y axis"},
+        {"name": "z", "description": "Rotate around Z axis"}
+      ]
+    },
+    "SharedAxisDirection": {
+      "description": "Direction for Material shared axis transitions",
+      "values": [
+        {"name": "horizontal", "description": "Horizontal axis (X)"},
+        {"name": "vertical", "description": "Vertical axis (Y)"},
+        {"name": "scaled", "description": "Depth axis (Z)"}
+      ]
+    },
+    "WipeShape": {
+      "description": "Shape for wipe transitions",
+      "values": [
+        {"name": "horizontal", "description": "Horizontal wipe"},
+        {"name": "vertical", "description": "Vertical wipe"},
+        {"name": "diagonal", "description": "Diagonal wipe"}
+      ]
+    },
+    "ExpandDirection": {
+      "description": "Direction for expand transitions",
+      "values": [
+        {"name": "leftToRight", "description": "Expand from left to right"},
+        {"name": "rightToLeft", "description": "Expand from right to left"},
+        {"name": "topToBottom", "description": "Expand from top to bottom"},
+        {"name": "bottomToTop", "description": "Expand from bottom to top"},
+        {"name": "center", "description": "Expand from center"}
+      ]
+    }
+  },
+  "extensionMethods": {
+    "BuildContext": [
+      {"name": "pushSlide", "description": "Navigate with slide transition"},
+      {"name": "pushFade", "description": "Navigate with fade transition"},
+      {"name": "pushScale", "description": "Navigate with scale transition"},
+      {"name": "pushCubeHorizontal", "description": "Navigate with 3D cube transition"},
+      {"name": "pushCupertino", "description": "Navigate with iOS-style transition"},
+      {"name": "pushSpring", "description": "Navigate with spring physics transition"},
+      {"name": "pushCircularReveal", "description": "Navigate with circular reveal"},
+      {"name": "pushGlass", "description": "Navigate with glassmorphism transition"},
+      {"name": "pushAdaptive", "description": "Navigate with adaptive transition"}
+    ],
+    "NavigatorState": [
+      {"name": "pushSlide", "description": "Navigate with slide transition"},
+      {"name": "pushSlideFade", "description": "Navigate with slide and fade"},
+      {"name": "pushFade", "description": "Navigate with fade transition"},
+      {"name": "pushFadeScale", "description": "Navigate with fade and scale"},
+      {"name": "pushScale", "description": "Navigate with scale transition"},
+      {"name": "pushZoomIn", "description": "Navigate with zoom in"},
+      {"name": "pushRotation", "description": "Navigate with rotation"},
+      {"name": "pushFlipHorizontal", "description": "Navigate with horizontal flip"},
+      {"name": "pushCubeHorizontal", "description": "Navigate with 3D cube"},
+      {"name": "pushSharedAxis", "description": "Navigate with shared axis"},
+      {"name": "pushCupertino", "description": "Navigate with Cupertino style"},
+      {"name": "pushSpring", "description": "Navigate with spring physics"},
+      {"name": "pushCircularReveal", "description": "Navigate with circular reveal"},
+      {"name": "pushGlass", "description": "Navigate with glassmorphism"},
+      {"name": "pushNoAnimation", "description": "Navigate without animation"},
+      {"name": "pushAdaptive", "description": "Navigate with adaptive transition"}
+    ]
+  },
+  "factoryClass": {
+    "name": "PageTransitions",
+    "description": "Static factory class for creating transitions",
+    "methods": [
+      "slide", "slideFade", "slideScale", "elasticSlide", "bouncySlide",
+      "push", "cover", "parallax", "fade", "fadeScale", "fadeRotation",
+      "fadeSlide", "fadeThrough", "fadeZoomIn", "fadeZoomOut", "scale",
+      "scaleFade", "zoomIn", "zoomOut", "zoomInFade", "zoomOutFade",
+      "popScale", "shrinkGrow", "rotation", "flipHorizontal", "flipVertical",
+      "spin", "rotationScale", "doorRotation", "cubeHorizontal", "cubeVertical",
+      "cardFlip", "carousel", "coverFlow", "perspectiveZoom", "sharedAxis",
+      "containerTransform", "elevationScale", "cupertino", "modal", "sheet",
+      "pageCurl", "appStoreCard", "spring", "gravityDrop", "elasticBounce",
+      "overScrollBounce", "circularReveal", "blur", "glitch", "wipe",
+      "spotlight", "glass", "liquidSwipe", "wavyEdge", "gooey", "neumorphism",
+      "bubbleInflate", "curtainReveal", "story", "reels", "snap", "flash",
+      "swipeCard", "stackedCards", "none", "simpleFade", "adaptive", "fastSnap"
+    ]
+  }
+}
