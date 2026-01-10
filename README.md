@@ -1,8 +1,18 @@
 # Page Navigation Transition
 
+[![pub package](https://img.shields.io/pub/v/page_navigation_transition.svg)](https://pub.dev/packages/page_navigation_transition)
+[![likes](https://img.shields.io/pub/likes/page_navigation_transition)](https://pub.dev/packages/page_navigation_transition/score)
+[![popularity](https://img.shields.io/pub/popularity/page_navigation_transition)](https://pub.dev/packages/page_navigation_transition/score)
+[![pub points](https://img.shields.io/pub/points/page_navigation_transition)](https://pub.dev/packages/page_navigation_transition/score)
+[![license](https://img.shields.io/github/license/SatishParmar1/page_navigation_transition)](https://github.com/SatishParmar1/page_navigation_transition/blob/main/LICENSE)
+
 A comprehensive Flutter package providing **100+ beautiful page navigation transitions** for your Flutter applications. Easily add smooth, professional animations when navigating between pages.
 
-## Features
+<p align="center">
+  <img src="https://raw.githubusercontent.com/SatishParmar1/page_navigation_transition/main/screenshots/demo.gif" alt="Demo" width="300"/>
+</p>
+
+## ✨ Features
 
 - **100+ Pre-built Transitions** organized into 13 categories
 - **Type-safe** generic transitions
@@ -10,26 +20,28 @@ A comprehensive Flutter package providing **100+ beautiful page navigation trans
 - **Extension methods** for easy navigation
 - **Static factory** for cleaner code
 - **Accessibility-friendly** options
+- **Zero dependencies** - only Flutter SDK required
+- **Cross-platform** - iOS, Android, Web, Desktop
 
-### Transition Categories
+## 📦 Transition Categories
 
-| Category | Examples |
-|----------|----------|
-| **Slide** | Slide, Push, Cover, Reveal, Parallax, Elastic, Bouncy |
-| **Fade** | Fade, FadeScale, FadeRotation, FadeThrough, CrossFade |
-| **Scale** | Scale, Zoom In/Out, Pop, Shrink/Grow |
-| **Rotation** | Rotate, Flip H/V, Spin, Door, Tilt |
-| **Size** | Expand H/V, Split, Unfold, ClipRect |
-| **Material Design** | Shared Axis, Container Transform, Elevation |
-| **iOS Style** | Cupertino, Modal, Sheet, Page Curl, App Store Card |
-| **3D Effects** | Cube, Card Flip, Carousel, Cover Flow, Perspective |
-| **Physics-based** | Spring, Gravity, Elastic Bounce, Pendulum |
-| **Custom Effects** | Circular Reveal, Blur, Glitch, Accordion, Wipe |
-| **Modern UI** | Glassmorphism, Liquid Swipe, Gooey, Neumorphism |
-| **Social Media** | Story, Reels, Snap, Swipe Card, Stacked Cards |
-| **Accessibility** | No Animation, Simple Fade, Adaptive |
+| Category | Count | Examples |
+|----------|-------|----------|
+| 🎚️ **Slide** | 8 | Slide, Push, Cover, Reveal, Parallax, Elastic, Bouncy |
+| 🌫️ **Fade** | 7 | Fade, FadeScale, FadeRotation, FadeThrough, CrossFade |
+| 🔍 **Scale** | 8 | Scale, Zoom In/Out, Pop, Shrink/Grow |
+| 🔄 **Rotation** | 9 | Rotate, Flip H/V, Spin, Door, Tilt |
+| 📐 **Size** | 6 | Expand H/V, Split, Unfold, ClipRect |
+| 🎨 **Material Design** | 6 | Shared Axis, Container Transform, Elevation |
+| 🍎 **iOS Style** | 7 | Cupertino, Modal, Sheet, Page Curl, App Store Card |
+| 🎲 **3D Effects** | 9 | Cube, Card Flip, Carousel, Cover Flow, Perspective |
+| ⚡ **Physics-based** | 7 | Spring, Gravity, Elastic Bounce, Pendulum |
+| ✨ **Custom Effects** | 10 | Circular Reveal, Blur, Glitch, Accordion, Wipe |
+| 💎 **Modern UI** | 9 | Glassmorphism, Liquid Swipe, Gooey, Neumorphism |
+| 📱 **Social Media** | 8 | Story, Reels, Snap, Swipe Card, Stacked Cards |
+| ♿ **Accessibility** | 7 | No Animation, Simple Fade, Adaptive |
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Installation
 
@@ -52,7 +64,7 @@ flutter pub get
 import 'package:page_navigation_transition/page_navigation_transition.dart';
 ```
 
-## Usage
+## 📖 Usage
 
 ### Method 1: Direct Usage
 
@@ -111,7 +123,7 @@ Navigator.push(
 );
 ```
 
-## Examples
+## 🎯 Examples
 
 ### Slide Transitions
 
@@ -260,7 +272,7 @@ Navigator.push(context, NoAnimationPageTransition(page: NextPage()));
 Navigator.push(context, AdaptivePageTransition(page: NextPage()));
 ```
 
-## Configuration
+## ⚙️ Configuration
 
 All transitions support common parameters:
 
@@ -274,7 +286,7 @@ SlidePageTransition(
 );
 ```
 
-## Enums
+## 📋 Enums
 
 ### SlideDirection
 - `fromLeft`, `fromRight`, `fromTop`, `fromBottom`
@@ -290,11 +302,41 @@ SlidePageTransition(
 ### WipeShape
 - `horizontal`, `vertical`, `diagonal`
 
-## License
-
-MIT License - see [LICENSE](LICENSE) for details.
-
-## Contributing
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+<p align="center">
+  <strong>Satish Parmar</strong>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SatishParmar1">
+    <img src="https://img.shields.io/badge/GitHub-SatishParmar1-181717?style=for-the-badge&logo=github" alt="GitHub"/>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/SatishParmar1/page_navigation_transition">📦 Repository</a> •
+  <a href="https://github.com/SatishParmar1/smart_review_prompter">🌟 smart_review_prompter</a>
+</p>
+
+---
+
+<p align="center">
+  <strong>⭐ If you like this package, please give it a star on GitHub! ⭐</strong>
+</p>
