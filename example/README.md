@@ -1,16 +1,51 @@
-# example
+# Page Navigation Transition - Example App
 
-A new Flutter project.
+This example app demonstrates all 100+ page navigation transitions available in the `page_navigation_transition` package.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+1. Navigate to the example directory:
+   ```bash
+   cd example
+   ```
 
-A few resources to get you started if this is your first Flutter project:
+2. Get dependencies:
+   ```bash
+   flutter pub get
+   ```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3. Run the app:
+   ```bash
+   flutter run
+   ```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+
+- **13 transition categories** organized in a clean, professional UI
+- **Tap any category** to see all transitions in that category
+- **Tap any transition** to see it in action
+- **Color-coded categories** for easy navigation
+
+## Screenshots
+
+The app showcases:
+- Slide transitions (from all directions)
+- Fade transitions (with scale, rotation, etc.)
+- 3D effects (cube, card flip, carousel)
+- Material Design transitions
+- iOS-style transitions
+- Physics-based animations
+- Modern UI effects (glassmorphism, liquid swipe)
+- Social media inspired transitions
+- And many more!
+
+## Code Structure
+
+```
+lib/
+└── main.dart    # Complete example app with all transitions
+```
+
+## License
+
+MIT License - see [LICENSE](../LICENSE) for details.
