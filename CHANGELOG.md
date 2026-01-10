@@ -1,18 +1,17 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.0.0]
 
-## [1.0.0] - 2024-01-10
+- **Slide Transitions** (8 effects) - Basic slides, Push, Cover, Reveal, Parallax, Elastic, Bouncy
+- **Fade Transitions** (7 effects) - Fade, FadeScale, FadeRotation, FadeThrough, CrossFade
+- **Scale Transitions** (8 effects) - Scale, Zoom In/Out, Pop, Shrink/Grow
+
+## [1.0.0] 
 
 ### Added
 - 🎉 Initial release with **100+ page navigation transitions**
-- **13 transition categories:**
-  - **Slide Transitions** (8 effects) - Basic slides, Push, Cover, Reveal, Parallax, Elastic, Bouncy
-  - **Fade Transitions** (7 effects) - Fade, FadeScale, FadeRotation, FadeThrough, CrossFade
-  - **Scale Transitions** (8 effects) - Scale, Zoom In/Out, Pop, Shrink/Grow
+- **10 transition categories:**
   - **Rotation Transitions** (9 effects) - Rotate, Flip Horizontal/Vertical, Spin, Door, Tilt
   - **Size Transitions** (6 effects) - Expand Horizontal/Vertical, Split, Unfold, ClipRect
   - **Material Design Transitions** (6 effects) - Shared Axis, Container Transform, Elevation

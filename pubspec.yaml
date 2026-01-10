@@ -1,6 +1,6 @@
 name: page_navigation_transition
-description: "A comprehensive Flutter package providing 100+ page navigation transitions including slide, fade, scale, rotation, 3D effects, Material Design, iOS-style, physics-based, and creative custom transitions."
-version: 1.0.0
+description: "A comprehensive Flutter package providing 100+ page navigation transitions."
+version: 1.0.1
 homepage: https://github.com/SatishParmar1/page_navigation_transition
 repository: https://github.com/SatishParmar1/page_navigation_transition
 issue_tracker: https://github.com/SatishParmar1/page_navigation_transition/issues
