@@ -1,8 +1,13 @@
 # Changelog
 
-## [1.1.0]
+All notable changes to this project will be documented in this file.
 
-### Added - New Features
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [1.1.0] - 2026-01-13
+
+### Added
 
 #### 🛤️ Named Route Support
 - `TransitionRouter` - Centralized route configuration with per-route transitions
@@ -11,7 +16,7 @@
 - `TransitionType` enum for specifying transition types
 - Extension methods: `pushNamedSlide`, `pushNamedFade`, `pushNamedScale`, `pushNamedCube`
 
-#### 🦸 Hero Transitions
+#### 🦸 Hero Transitions (5 new transitions)
 - `HeroSlidePageTransition` - Hero-aware slide transition
 - `HeroFadePageTransition` - Hero-aware fade transition
 - `HeroScalePageTransition` - Hero-aware scale transition
@@ -50,38 +55,68 @@
 - `HologramPageTransition` - Futuristic hologram with flicker effect
 
 #### ⚡ Performance Optimizations
-- `OptimizedTransitionWrapper` - RepaintBoundary wrapper
+- `OptimizedTransitionWrapper` - RepaintBoundary wrapper for smoother animations
 - `CachedMatrixBuilder` - Matrix caching for 3D effects
 - `AccessibilityHelper` - Reduced motion detection and adaptation
 - `PerformanceConfig` - Configurable performance settings
 - `TransitionPerformanceMonitor` - Debug frame rate monitoring
 
 ### Changed
-- `TransitionTheme` enum renamed to `TransitionStyle` to avoid naming conflict
+- `TransitionTheme` enum renamed to `TransitionStyle` to avoid naming conflict with new `TransitionTheme` class
+- Updated example app with new silver/metallic theme and Sliver-based UI
+- Improved documentation with screenshots and video demo
+
+### Fixed
+- Fixed Row overflow issue in example app statistics section
 
 ---
 
-## [1.0.0]
-
-- **Slide Transitions** (8 effects) - Basic slides, Push, Cover, Reveal, Parallax, Elastic, Bouncy
-- **Fade Transitions** (7 effects) - Fade, FadeScale, FadeRotation, FadeThrough, CrossFade
-- **Scale Transitions** (8 effects) - Scale, Zoom In/Out, Pop, Shrink/Grow
-
-## [1.0.0] 
+## [1.0.0] - 2026-01-10
 
 ### Added
 - 🎉 Initial release with **100+ page navigation transitions**
-- **10 transition categories:**
-  - **Rotation Transitions** (9 effects) - Rotate, Flip Horizontal/Vertical, Spin, Door, Tilt
-  - **Size Transitions** (6 effects) - Expand Horizontal/Vertical, Split, Unfold, ClipRect
-  - **Material Design Transitions** (6 effects) - Shared Axis, Container Transform, Elevation
-  - **iOS-Style Transitions** (7 effects) - Cupertino, Modal, Sheet, Page Curl, App Store Card
-  - **3D Transitions** (9 effects) - Cube, Card Flip, Carousel, Cover Flow, Perspective
-  - **Physics-Based Transitions** (7 effects) - Spring, Gravity, Elastic Bounce, Pendulum
-  - **Custom Effects** (10 effects) - Circular Reveal, Blur, Glitch, Accordion, Wipe
-  - **Modern UI Transitions** (9 effects) - Glassmorphism, Liquid Swipe, Gooey, Neumorphism
-  - **Social Media Transitions** (8 effects) - Story, Reels, Snap, Swipe Card, Stacked Cards
-  - **Accessibility Transitions** (7 effects) - No Animation, Simple Fade, Adaptive
+- **13 transition categories:**
+
+#### 🎚️ Slide Transitions (9 effects)
+- Slide, Push, Cover, Reveal, Parallax, SlideFade, SlideScale, ElasticSlide, BouncySlide
+
+#### 🌫️ Fade Transitions (8 effects)
+- Fade, FadeScale, FadeRotation, FadeSlide, FadeThrough, CrossFade, FadeZoomIn, FadeZoomOut
+
+#### 🔍 Scale Transitions (10 effects)
+- Scale, ScaleFade, ZoomIn, ZoomOut, ZoomInFade, ZoomOutFade, PopScale, ShrinkGrow, ScaleRotation, DepthScale
+
+#### 🔄 Rotation Transitions (9 effects)
+- Rotation, FlipHorizontal, FlipVertical, RotationFade, RotationScale, Spin, TiltRotation, DoorRotation, RotationScaleFade
+
+#### 📐 Size Transitions (8 effects)
+- Size, ExpandHorizontal, ExpandVertical, ExpandFromCenter, ClipRect, AlignSize, Split, Unfold
+
+#### 🎨 Material Design Transitions (5 effects)
+- SharedAxis, FadeThroughMaterial, ContainerTransform, ElevationScale, Material
+
+#### 🍎 iOS Style Transitions (6 effects)
+- CupertinoSlide, ModalSlide, PageCurl, Sheet, FullscreenModal, AppStoreCard
+
+#### 🎲 3D Transitions (10 effects)
+- CubeHorizontal, CubeVertical, InsideCube, CardFlip, Carousel, CoverFlow, CylinderWrap, PerspectiveZoom, ParallaxDepth, Fold
+
+#### ⚡ Physics-based Transitions (9 effects)
+- Spring, GravityDrop, ElasticBounce, DampedOscillation, InertiaSlide, RubberBand, Pendulum, OverScrollBounce, SpringRebound
+
+#### ✨ Custom Effects (10 effects)
+- CircularReveal, Blur, Glitch, Accordion, BookFlip, StackDepth, Shutter, Wipe, Spotlight, Pixelate
+
+#### 💎 Modern UI Transitions (9 effects)
+- Glassmorphism, SlidingGlassPanels, LiquidSwipe, WavyEdge, Gooey, SplashReveal, Neumorphism, BubbleInflate, CurtainReveal
+
+#### 📱 Social Media Transitions (11 effects)
+- Story, Reels, Snap, SlideWithBounce, Flash, CrossFadeAudio, AlbumArtExpand, NowPlayingSlide, SwipeCard, PullToDismiss, StackedCards
+
+#### ♿ Accessibility Transitions (7 effects)
+- NoAnimation, SimpleFade, MinimalMovement, OpacityOnly, TransformOnly, Adaptive, FastSnap
+
+### Features
 - Extension methods on `BuildContext` and `NavigatorState` for easy navigation
 - Static factory class `PageTransitions` for clean, consistent API
 - Type-safe generic transitions
@@ -89,10 +124,19 @@
 - Full example app demonstrating all transitions
 - Comprehensive documentation and README
 
-### Features
-- 📱 Works on iOS, Android, Web, Desktop (Windows, macOS, Linux)
-- ⚡ Zero external dependencies (only Flutter SDK)
-- 🎨 Highly customizable animations
-- ♿ Accessibility-friendly options (respects system reduce motion)
-- 📖 Well-documented API with examples
-- 🧪 Type-safe with generics support
+### Platform Support
+- ✅ iOS
+- ✅ Android
+- ✅ Web
+- ✅ Windows
+- ✅ macOS
+- ✅ Linux
+
+---
+
+## Links
+
+- 📦 [Package on pub.dev](https://pub.dev/packages/page_navigation_transition)
+- 📱 [GitHub Repository](https://github.com/SatishParmar1/page_navigation_transition)
+- 💼 [Author's LinkedIn](https://www.linkedin.com/in/satish-parmar-ak978312/)
+- 📸 [Other Packages: photo_opener_view](https://pub.dev/packages/photo_opener_view)
