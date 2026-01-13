@@ -18,27 +18,27 @@ class SpringPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.elasticOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.elasticOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            final offset = _getOffset(direction);
+           final offset = _getOffset(direction);
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: offset,
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: offset,
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 
   static Offset _getOffset(SlideDirection direction) {
     switch (direction) {
@@ -74,25 +74,25 @@ class GravityDropPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.bounceOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.bounceOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, -1.5),
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: const Offset(0.0, -1.5),
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Elastic bounce transition
@@ -107,25 +107,25 @@ class ElasticBouncePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.elasticOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.elasticOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: 0.0,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: 0.0,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Damped oscillation transition
@@ -140,31 +140,28 @@ class DampedOscillationPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                // Damped oscillation formula
-                final t = animation.value;
-                final damping = math.exp(-3 * t);
-                final oscillation = math.sin(t * math.pi * 4) * damping;
-                final scale = 1.0 + (oscillation * 0.1 * (1 - t));
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               // Damped oscillation formula
+               final t = animation.value;
+               final damping = math.exp(-3 * t);
+               final oscillation = math.sin(t * math.pi * 4) * damping;
+               final scale = 1.0 + (oscillation * 0.1 * (1 - t));
 
-                return Transform.scale(
-                  scale: t < 0.01 ? 0.01 : scale.clamp(0.5, 1.2),
-                  child: Opacity(
-                    opacity: t.clamp(0.0, 1.0),
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform.scale(
+                 scale: t < 0.01 ? 0.01 : scale.clamp(0.5, 1.2),
+                 child: Opacity(opacity: t.clamp(0.0, 1.0), child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Inertia slide transition
@@ -183,27 +180,27 @@ class InertiaSlidePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.decelerate,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.decelerate,
+             reverseCurve: Curves.easeIn,
+           );
 
-            final offset = _getOffset(direction);
+           final offset = _getOffset(direction);
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: offset,
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: offset,
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 
   static Offset _getOffset(SlideDirection direction) {
     switch (direction) {
@@ -239,42 +236,43 @@ class RubberBandPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                // Rubber band effect - overshoot then settle
-                double scaleX, scaleY;
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               // Rubber band effect - overshoot then settle
+               double scaleX, scaleY;
 
-                if (t < 0.5) {
-                  // Stretch phase
-                  scaleX = t * 2 * 1.2;
-                  scaleY = t * 2 * 0.8;
-                } else {
-                  // Settle phase
-                  final settleT = (t - 0.5) * 2;
-                  scaleX = 1.2 - (0.2 * settleT);
-                  scaleY = 0.8 + (0.2 * settleT);
-                }
+               if (t < 0.5) {
+                 // Stretch phase
+                 scaleX = t * 2 * 1.2;
+                 scaleY = t * 2 * 0.8;
+               } else {
+                 // Settle phase
+                 final settleT = (t - 0.5) * 2;
+                 scaleX = 1.2 - (0.2 * settleT);
+                 scaleY = 0.8 + (0.2 * settleT);
+               }
 
-                return Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..scale(scaleX.clamp(0.01, 1.5), scaleY.clamp(0.01, 1.5)),
-                  child: Opacity(
-                    opacity: t.clamp(0.0, 1.0),
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.center,
+                 transform: Matrix4.identity()
+                   ..scale(
+                     scaleX.clamp(0.01, 1.5),
+                     scaleY.clamp(0.01, 1.5),
+                     1.0,
+                   ),
+                 child: Opacity(opacity: t.clamp(0.0, 1.0), child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Pendulum swing transition
@@ -289,33 +287,29 @@ class PendulumPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 500),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                // Pendulum swing with damping
-                final damping = math.exp(-2 * t);
-                final swing = math.sin(t * math.pi * 3) * damping * (1 - t);
-                final rotation = swing * 0.2;
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               // Pendulum swing with damping
+               final damping = math.exp(-2 * t);
+               final swing = math.sin(t * math.pi * 3) * damping * (1 - t);
+               final rotation = swing * 0.2;
 
-                return Transform(
-                  alignment: Alignment.topCenter,
-                  transform: Matrix4.identity()
-                    ..rotateZ(rotation),
-                  child: Opacity(
-                    opacity: t.clamp(0.0, 1.0),
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.topCenter,
+                 transform: Matrix4.identity()..rotateZ(rotation),
+                 child: Opacity(opacity: t.clamp(0.0, 1.0), child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Over-scroll bounce transition
@@ -334,38 +328,41 @@ class OverScrollBouncePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                // Over-scroll effect
-                double progress;
-                if (t < 0.7) {
-                  // Overshoot
-                  progress = (t / 0.7) * 1.1;
-                } else {
-                  // Bounce back
-                  progress = 1.1 - ((t - 0.7) / 0.3 * 0.1);
-                }
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               // Over-scroll effect
+               double progress;
+               if (t < 0.7) {
+                 // Overshoot
+                 progress = (t / 0.7) * 1.1;
+               } else {
+                 // Bounce back
+                 progress = 1.1 - ((t - 0.7) / 0.3 * 0.1);
+               }
 
-                final offset = _getOffset(direction, 1 - progress.clamp(0.0, 1.1));
+               final offset = _getOffset(
+                 direction,
+                 1 - progress.clamp(0.0, 1.1),
+               );
 
-                return Transform.translate(
-                  offset: Offset(
-                    offset.dx * MediaQuery.of(context).size.width,
-                    offset.dy * MediaQuery.of(context).size.height,
-                  ),
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform.translate(
+                 offset: Offset(
+                   offset.dx * MediaQuery.of(context).size.width,
+                   offset.dy * MediaQuery.of(context).size.height,
+                 ),
+                 child: child,
+               );
+             },
+             child: child,
+           );
+         },
+       );
 
   static Offset _getOffset(SlideDirection direction, double factor) {
     switch (direction) {
@@ -401,30 +398,30 @@ class SpringReboundPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final scaleAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.elasticOut,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final scaleAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.elasticOut,
+           );
 
-            final fadeAnimation = CurvedAnimation(
-              parent: animation,
-              curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
-            );
+           final fadeAnimation = CurvedAnimation(
+             parent: animation,
+             curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+           );
 
-            return FadeTransition(
-              opacity: fadeAnimation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 0.3,
-                  end: 1.0,
-                ).animate(scaleAnimation),
-                child: child,
-              ),
-            );
-          },
-        );
+           return FadeTransition(
+             opacity: fadeAnimation,
+             child: ScaleTransition(
+               scale: Tween<double>(
+                 begin: 0.3,
+                 end: 1.0,
+               ).animate(scaleAnimation),
+               child: child,
+             ),
+           );
+         },
+       );
 }

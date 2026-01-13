@@ -233,7 +233,7 @@ class CarouselPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(translateX, 0.0, 0.0)
+                   ..translateByDouble(translateX, 0.0, 0.0, 1.0)
                    ..rotateY(-angle),
                  child: Opacity(
                    opacity: curvedAnimation.value.clamp(0.3, 1.0),
@@ -283,9 +283,9 @@ class CoverFlowPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(translateX, 0.0, 0.0)
+                   ..translateByDouble(translateX, 0.0, 0.0, 1.0)
                    ..rotateY(-angle)
-                   ..scale(scale),
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: child,
                );
              },
@@ -330,7 +330,7 @@ class CylinderWrapPageTransition<T> extends PageRouteBuilder<T> {
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.002)
                    ..rotateY(angle)
-                   ..scale(scale),
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(opacity: curvedAnimation.value, child: child),
                );
              },
@@ -381,8 +381,8 @@ class PerspectiveZoomPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(0.0, 0.0, translateZ)
-                   ..scale(scale),
+                   ..translateByDouble(0.0, 0.0, translateZ, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(opacity: curvedAnimation.value, child: child),
                );
              },
@@ -428,8 +428,8 @@ class ParallaxDepthPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(translateX, 0.0, translateZ)
-                   ..scale(scale),
+                   ..translateByDouble(translateX, 0.0, translateZ, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(opacity: curvedAnimation.value, child: child),
                );
              },
@@ -536,7 +536,7 @@ class OrigamiPageTransition<T> extends PageRouteBuilder<T> {
                  matrix.rotateX(angle * 0.5);
                  matrix.rotateZ(-angle * 0.1);
                }
-               matrix.scale(scale);
+               matrix.scaleByDouble(scale, scale, 1.0, 1.0);
 
                return Transform(
                  alignment: foldAxis == Axis.horizontal
@@ -653,10 +653,10 @@ class SpherePageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(0.0, 0.0, translateZ)
+                   ..translateByDouble(0.0, 0.0, translateZ, 1.0)
                    ..rotateY(rotationAngle * 0.5)
                    ..rotateX(rotationAngle * 0.3)
-                   ..scale(scale),
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(opacity: progress, child: child),
                );
              },
@@ -713,8 +713,8 @@ class ZStackPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(0.0, translateY, translateZ)
-                   ..scale(scale),
+                   ..translateByDouble(0.0, translateY, translateZ, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(
                    opacity: progress.clamp(0.0, 1.0),
                    child: child,
@@ -779,9 +779,9 @@ class LayeredDepthPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.centerRight,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(translateX, 0.0, translateZ)
+                   ..translateByDouble(translateX, 0.0, translateZ, 1.0)
                    ..rotateY(-rotateY)
-                   ..scale(scale),
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(
                    opacity: progress.clamp(0.0, 1.0),
                    child: child,
@@ -847,8 +847,8 @@ class HologramPageTransition<T> extends PageRouteBuilder<T> {
                  alignment: Alignment.center,
                  transform: Matrix4.identity()
                    ..setEntry(3, 2, 0.001)
-                   ..translate(0.0, 0.0, translateZ)
-                   ..scale(scale),
+                   ..translateByDouble(0.0, 0.0, translateZ, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
                  child: Opacity(
                    opacity: (progress * flickerValue).clamp(0.0, 1.0),
                    child: ColorFiltered(

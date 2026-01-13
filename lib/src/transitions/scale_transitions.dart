@@ -23,28 +23,28 @@ class ScalePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            final alignment = _getAlignment(origin);
+           final alignment = _getAlignment(origin);
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: beginScale,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              alignment: alignment,
-              child: child,
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: beginScale,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             alignment: alignment,
+             child: child,
+           );
+         },
+       );
 
   static Alignment _getAlignment(ScaleOrigin origin) {
     switch (origin) {
@@ -92,31 +92,31 @@ class ScaleFadePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            final alignment = _getAlignment(origin);
+           final alignment = _getAlignment(origin);
 
-            return FadeTransition(
-              opacity: curvedAnimation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: beginScale,
-                  end: 1.0,
-                ).animate(curvedAnimation),
-                alignment: alignment,
-                child: child,
-              ),
-            );
-          },
-        );
+           return FadeTransition(
+             opacity: curvedAnimation,
+             child: ScaleTransition(
+               scale: Tween<double>(
+                 begin: beginScale,
+                 end: 1.0,
+               ).animate(curvedAnimation),
+               alignment: alignment,
+               child: child,
+             ),
+           );
+         },
+       );
 
   static Alignment _getAlignment(ScaleOrigin origin) {
     switch (origin) {
@@ -160,37 +160,36 @@ class ShrinkGrowPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            // Create a scale animation that goes: 1.0 -> minScale -> 1.0
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                double scale;
-                if (curvedAnimation.value < 0.5) {
-                  // First half: shrink from 1.0 to minScale
-                  scale = 1.0 - ((1.0 - minScale) * (curvedAnimation.value * 2));
-                } else {
-                  // Second half: grow from minScale to 1.0
-                  scale = minScale + ((1.0 - minScale) * ((curvedAnimation.value - 0.5) * 2));
-                }
-                return Transform.scale(
-                  scale: scale,
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+           // Create a scale animation that goes: 1.0 -> minScale -> 1.0
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               double scale;
+               if (curvedAnimation.value < 0.5) {
+                 // First half: shrink from 1.0 to minScale
+                 scale = 1.0 - ((1.0 - minScale) * (curvedAnimation.value * 2));
+               } else {
+                 // Second half: grow from minScale to 1.0
+                 scale =
+                     minScale +
+                     ((1.0 - minScale) * ((curvedAnimation.value - 0.5) * 2));
+               }
+               return Transform.scale(scale: scale, child: child);
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Zoom in transition
@@ -207,25 +206,25 @@ class ZoomInPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeIn,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: 0.0,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: 0.0,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Zoom out transition (starts from zoomed in)
@@ -242,25 +241,25 @@ class ZoomOutPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeIn,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: 2.0,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: 2.0,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Zoom in with fade transition
@@ -277,28 +276,28 @@ class ZoomInFadePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeIn,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return FadeTransition(
-              opacity: curvedAnimation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 0.5,
-                  end: 1.0,
-                ).animate(curvedAnimation),
-                child: child,
-              ),
-            );
-          },
-        );
+           return FadeTransition(
+             opacity: curvedAnimation,
+             child: ScaleTransition(
+               scale: Tween<double>(
+                 begin: 0.5,
+                 end: 1.0,
+               ).animate(curvedAnimation),
+               child: child,
+             ),
+           );
+         },
+       );
 }
 
 /// Zoom out with fade transition
@@ -315,28 +314,28 @@ class ZoomOutFadePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeIn,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return FadeTransition(
-              opacity: curvedAnimation,
-              child: ScaleTransition(
-                scale: Tween<double>(
-                  begin: 1.5,
-                  end: 1.0,
-                ).animate(curvedAnimation),
-                child: child,
-              ),
-            );
-          },
-        );
+           return FadeTransition(
+             opacity: curvedAnimation,
+             child: ScaleTransition(
+               scale: Tween<double>(
+                 begin: 1.5,
+                 end: 1.0,
+               ).animate(curvedAnimation),
+               child: child,
+             ),
+           );
+         },
+       );
 }
 
 /// Pop scale transition (bouncy scale)
@@ -351,25 +350,25 @@ class PopScalePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.elasticOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.elasticOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: 0.0,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: 0.0,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Scale with rotation transition
@@ -394,31 +393,31 @@ class ScaleRotationPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return ScaleTransition(
-              scale: Tween<double>(
-                begin: beginScale,
-                end: 1.0,
-              ).animate(curvedAnimation),
-              child: RotationTransition(
-                turns: Tween<double>(
-                  begin: beginTurns,
-                  end: 0.0,
-                ).animate(curvedAnimation),
-                child: child,
-              ),
-            );
-          },
-        );
+           return ScaleTransition(
+             scale: Tween<double>(
+               begin: beginScale,
+               end: 1.0,
+             ).animate(curvedAnimation),
+             child: RotationTransition(
+               turns: Tween<double>(
+                 begin: beginTurns,
+                 end: 0.0,
+               ).animate(curvedAnimation),
+               child: child,
+             ),
+           );
+         },
+       );
 }
 
 /// Depth scale transition (with perspective)
@@ -435,36 +434,39 @@ class DepthScalePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final scale = Tween<double>(begin: 0.5, end: 1.0).evaluate(curvedAnimation);
-                final translateZ = Tween<double>(begin: -200.0, end: 0.0).evaluate(curvedAnimation);
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final scale = Tween<double>(
+                 begin: 0.5,
+                 end: 1.0,
+               ).evaluate(curvedAnimation);
+               final translateZ = Tween<double>(
+                 begin: -200.0,
+                 end: 0.0,
+               ).evaluate(curvedAnimation);
 
-                return Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..translate(0.0, 0.0, translateZ)
-                    ..scale(scale),
-                  child: Opacity(
-                    opacity: curvedAnimation.value,
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.center,
+                 transform: Matrix4.identity()
+                   ..setEntry(3, 2, 0.001)
+                   ..translateByDouble(0.0, 0.0, translateZ, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
+                 child: Opacity(opacity: curvedAnimation.value, child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }

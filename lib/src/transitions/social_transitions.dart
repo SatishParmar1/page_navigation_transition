@@ -13,25 +13,25 @@ class StoryPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 1.0),
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: const Offset(0.0, 1.0),
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// Reels-style transition (quick vertical slide)
@@ -46,25 +46,25 @@ class ReelsPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 200),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOutCubic,
-              reverseCurve: Curves.easeInCubic,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOutCubic,
+             reverseCurve: Curves.easeInCubic,
+           );
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 1.0),
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: const Offset(0.0, 1.0),
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 }
 
 /// TikTok-style quick snap transition
@@ -83,27 +83,27 @@ class SnapPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 150),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOutQuart,
-              reverseCurve: Curves.easeInQuart,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOutQuart,
+             reverseCurve: Curves.easeInQuart,
+           );
 
-            final offset = _getOffset(direction);
+           final offset = _getOffset(direction);
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: offset,
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: offset,
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 
   static Offset _getOffset(SlideDirection direction) {
     switch (direction) {
@@ -143,27 +143,27 @@ class SlideWithBouncePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.bounceOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.bounceOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            final offset = _getOffset(direction);
+           final offset = _getOffset(direction);
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: offset,
-                end: Offset.zero,
-              ).animate(curvedAnimation),
-              child: child,
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: offset,
+               end: Offset.zero,
+             ).animate(curvedAnimation),
+             child: child,
+           );
+         },
+       );
 
   static Offset _getOffset(SlideDirection direction) {
     switch (direction) {
@@ -203,36 +203,35 @@ class FlashPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                // Flash peaks at 50% and fades
-                final flashOpacity = t < 0.5 ? t * 2 : (1 - t) * 2;
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               // Flash peaks at 50% and fades
+               final flashOpacity = t < 0.5 ? t * 2 : (1 - t) * 2;
 
-                return Stack(
-                  children: [
-                    Opacity(
-                      opacity: t,
-                      child: child,
-                    ),
-                    if (flashOpacity > 0)
-                      Positioned.fill(
-                        child: Container(
-                          color: flashColor.withValues(alpha: flashOpacity * 0.5),
-                        ),
-                      ),
-                  ],
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Stack(
+                 children: [
+                   Opacity(opacity: t, child: child),
+                   if (flashOpacity > 0)
+                     Positioned.fill(
+                       child: Container(
+                         color: flashColor.withValues(
+                           alpha: flashOpacity * 0.5,
+                         ),
+                       ),
+                     ),
+                 ],
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Spotify-style cross-fade transition
@@ -247,21 +246,18 @@ class CrossFadeAudioPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOut,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeInOut,
+           );
 
-            return FadeTransition(
-              opacity: curvedAnimation,
-              child: child,
-            );
-          },
-        );
+           return FadeTransition(opacity: curvedAnimation, child: child);
+         },
+       );
 }
 
 /// Spotify-style album art expansion transition
@@ -276,37 +272,37 @@ class AlbumArtExpandPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final scale = 0.8 + (curvedAnimation.value * 0.2);
-                final borderRadius = (1 - curvedAnimation.value) * 16;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final scale = 0.8 + (curvedAnimation.value * 0.2);
+               final borderRadius = (1 - curvedAnimation.value) * 16;
 
-                return Transform.scale(
-                  scale: scale,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(borderRadius),
-                    child: FadeTransition(
-                      opacity: curvedAnimation,
-                      child: child,
-                    ),
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform.scale(
+                 scale: scale,
+                 child: ClipRRect(
+                   borderRadius: BorderRadius.circular(borderRadius),
+                   child: FadeTransition(
+                     opacity: curvedAnimation,
+                     child: child,
+                   ),
+                 ),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Spotify-style now playing slide up transition
@@ -321,33 +317,36 @@ class NowPlayingSlidePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final slideAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final slideAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            final fadeAnimation = CurvedAnimation(
-              parent: animation,
-              curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
-            );
+           final fadeAnimation = CurvedAnimation(
+             parent: animation,
+             curve: const Interval(0.0, 0.5, curve: Curves.easeIn),
+           );
 
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 1.0),
-                end: Offset.zero,
-              ).animate(slideAnimation),
-              child: FadeTransition(
-                opacity: Tween<double>(begin: 0.5, end: 1.0).animate(fadeAnimation),
-                child: child,
-              ),
-            );
-          },
-        );
+           return SlideTransition(
+             position: Tween<Offset>(
+               begin: const Offset(0.0, 1.0),
+               end: Offset.zero,
+             ).animate(slideAnimation),
+             child: FadeTransition(
+               opacity: Tween<double>(
+                 begin: 0.5,
+                 end: 1.0,
+               ).animate(fadeAnimation),
+               child: child,
+             ),
+           );
+         },
+       );
 }
 
 /// Tinder-style swipe card transition
@@ -366,37 +365,43 @@ class SwipeCardPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final slideOffset = (1 - curvedAnimation.value) * (swipeRight ? 1.5 : -1.5);
-                final rotation = (1 - curvedAnimation.value) * (swipeRight ? 0.2 : -0.2);
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final slideOffset =
+                   (1 - curvedAnimation.value) * (swipeRight ? 1.5 : -1.5);
+               final rotation =
+                   (1 - curvedAnimation.value) * (swipeRight ? 0.2 : -0.2);
 
-                return Transform(
-                  alignment: Alignment.bottomCenter,
-                  transform: Matrix4.identity()
-                    ..translate(slideOffset * MediaQuery.of(context).size.width)
-                    ..rotateZ(rotation),
-                  child: Opacity(
-                    opacity: curvedAnimation.value.clamp(0.0, 1.0),
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.bottomCenter,
+                 transform: Matrix4.identity()
+                   ..translate(
+                     slideOffset * MediaQuery.of(context).size.width,
+                     0.0,
+                     0.0,
+                   )
+                   ..rotateZ(rotation),
+                 child: Opacity(
+                   opacity: curvedAnimation.value.clamp(0.0, 1.0),
+                   child: child,
+                 ),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Pull to dismiss transition
@@ -411,39 +416,36 @@ class PullToDismissPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          opaque: false,
-          barrierColor: Colors.black54,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         opaque: false,
+         barrierColor: Colors.black54,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final translateY = (1 - curvedAnimation.value) * 100;
-                final scale = 0.9 + (curvedAnimation.value * 0.1);
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final translateY = (1 - curvedAnimation.value) * 100;
+               final scale = 0.9 + (curvedAnimation.value * 0.1);
 
-                return Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..translate(0.0, translateY)
-                    ..scale(scale),
-                  child: Opacity(
-                    opacity: curvedAnimation.value,
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.center,
+                 transform: Matrix4.identity()
+                   ..translateByDouble(0.0, translateY, 0.0, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
+                 child: Opacity(opacity: curvedAnimation.value, child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// iOS App Switcher style stacked cards transition
@@ -458,39 +460,39 @@ class StackedCardsPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 400),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeOut,
-              reverseCurve: Curves.easeIn,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeOut,
+             reverseCurve: Curves.easeIn,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final scale = 0.85 + (curvedAnimation.value * 0.15);
-                final translateY = (1 - curvedAnimation.value) * 50;
-                final borderRadius = (1 - curvedAnimation.value) * 20;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final scale = 0.85 + (curvedAnimation.value * 0.15);
+               final translateY = (1 - curvedAnimation.value) * 50;
+               final borderRadius = (1 - curvedAnimation.value) * 20;
 
-                return Transform(
-                  alignment: Alignment.center,
-                  transform: Matrix4.identity()
-                    ..translate(0.0, translateY)
-                    ..scale(scale),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(borderRadius),
-                    child: FadeTransition(
-                      opacity: curvedAnimation,
-                      child: child,
-                    ),
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.center,
+                 transform: Matrix4.identity()
+                   ..translateByDouble(0.0, translateY, 0.0, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
+                 child: ClipRRect(
+                   borderRadius: BorderRadius.circular(borderRadius),
+                   child: FadeTransition(
+                     opacity: curvedAnimation,
+                     child: child,
+                   ),
+                 ),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }

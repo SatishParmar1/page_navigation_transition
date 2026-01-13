@@ -21,41 +21,38 @@ class CircularRevealPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                return ClipPath(
-                  clipper: _CircularRevealClipper(
-                    progress: curvedAnimation.value,
-                    center: center,
-                  ),
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               return ClipPath(
+                 clipper: _CircularRevealClipper(
+                   progress: curvedAnimation.value,
+                   center: center,
+                 ),
+                 child: child,
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 class _CircularRevealClipper extends CustomClipper<Path> {
   final double progress;
   final Alignment center;
 
-  _CircularRevealClipper({
-    required this.progress,
-    required this.center,
-  });
+  _CircularRevealClipper({required this.progress, required this.center});
 
   @override
   Path getClip(Size size) {
@@ -69,11 +66,9 @@ class _CircularRevealClipper extends CustomClipper<Path> {
 
     final currentRadius = progress * maxRadius;
 
-    return Path()
-      ..addOval(Rect.fromCircle(
-        center: Offset(centerX, centerY),
-        radius: currentRadius,
-      ));
+    return Path()..addOval(
+      Rect.fromCircle(center: Offset(centerX, centerY), radius: currentRadius),
+    );
   }
 
   @override
@@ -100,36 +95,30 @@ class BlurPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final sigma = (1 - curvedAnimation.value) * maxBlur;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final sigma = (1 - curvedAnimation.value) * maxBlur;
 
-                return ImageFiltered(
-                  imageFilter: ImageFilter.blur(
-                    sigmaX: sigma,
-                    sigmaY: sigma,
-                  ),
-                  child: Opacity(
-                    opacity: curvedAnimation.value,
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return ImageFiltered(
+                 imageFilter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
+                 child: Opacity(opacity: curvedAnimation.value, child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Glitch effect transition
@@ -148,57 +137,54 @@ class GlitchPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 300),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                final random = math.Random((t * 1000).toInt());
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               final random = math.Random((t * 1000).toInt());
 
-                // Glitch offset that decreases as animation progresses
-                final glitchFactor = (1 - t) * intensity;
-                final offsetX = (random.nextDouble() - 0.5) * 20 * glitchFactor;
-                final offsetY = (random.nextDouble() - 0.5) * 10 * glitchFactor;
+               // Glitch offset that decreases as animation progresses
+               final glitchFactor = (1 - t) * intensity;
+               final offsetX = (random.nextDouble() - 0.5) * 20 * glitchFactor;
+               final offsetY = (random.nextDouble() - 0.5) * 10 * glitchFactor;
 
-                // Show glitch slices
-                final showGlitch = t < 0.8 && random.nextDouble() > 0.7;
+               // Show glitch slices
+               final showGlitch = t < 0.8 && random.nextDouble() > 0.7;
 
-                return Stack(
-                  children: [
-                    Transform.translate(
-                      offset: Offset(offsetX, offsetY),
-                      child: Opacity(
-                        opacity: t.clamp(0.0, 1.0),
-                        child: child,
-                      ),
-                    ),
-                    if (showGlitch)
-                      Positioned(
-                        top: random.nextDouble() * 200,
-                        left: 0,
-                        right: 0,
-                        height: 5 + random.nextDouble() * 10,
-                        child: ColorFiltered(
-                          colorFilter: ColorFilter.mode(
-                            Colors.cyan.withValues(alpha: 0.5),
-                            BlendMode.srcATop,
-                          ),
-                          child: Transform.translate(
-                            offset: Offset(random.nextDouble() * 20 - 10, 0),
-                            child: child,
-                          ),
-                        ),
-                      ),
-                  ],
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Stack(
+                 children: [
+                   Transform.translate(
+                     offset: Offset(offsetX, offsetY),
+                     child: Opacity(opacity: t.clamp(0.0, 1.0), child: child),
+                   ),
+                   if (showGlitch)
+                     Positioned(
+                       top: random.nextDouble() * 200,
+                       left: 0,
+                       right: 0,
+                       height: 5 + random.nextDouble() * 10,
+                       child: ColorFiltered(
+                         colorFilter: ColorFilter.mode(
+                           Colors.cyan.withValues(alpha: 0.5),
+                           BlendMode.srcATop,
+                         ),
+                         child: Transform.translate(
+                           offset: Offset(random.nextDouble() * 20 - 10, 0),
+                           child: child,
+                         ),
+                       ),
+                     ),
+                 ],
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Accordion fold transition
@@ -219,34 +205,31 @@ class AccordionPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final scaleY = curvedAnimation.value;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final scaleY = curvedAnimation.value;
 
-                return Transform(
-                  alignment: Alignment.topCenter,
-                  transform: Matrix4.identity()..scale(1.0, scaleY),
-                  child: Opacity(
-                    opacity: curvedAnimation.value,
-                    child: child,
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.topCenter,
+                 transform: Matrix4.identity()..scaleByDouble(1.0, scaleY, 1.0, 1.0),
+                 child: Opacity(opacity: curvedAnimation.value, child: child),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Page flip (book-style) transition
@@ -265,37 +248,37 @@ class BookFlipPageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 600),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOut,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: Curves.easeInOut,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final angle = (1 - curvedAnimation.value) * math.pi;
-                final isShowingFront = curvedAnimation.value > 0.5;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final angle = (1 - curvedAnimation.value) * math.pi;
+               final isShowingFront = curvedAnimation.value > 0.5;
 
-                return Transform(
-                  alignment: rightToLeft
-                      ? Alignment.centerRight
-                      : Alignment.centerLeft,
-                  transform: Matrix4.identity()
-                    ..setEntry(3, 2, 0.001)
-                    ..rotateY(rightToLeft ? -angle : angle),
-                  child: isShowingFront
-                      ? child
-                      : Container(color: Colors.grey[100]),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: rightToLeft
+                     ? Alignment.centerRight
+                     : Alignment.centerLeft,
+                 transform: Matrix4.identity()
+                   ..setEntry(3, 2, 0.001)
+                   ..rotateY(rightToLeft ? -angle : angle),
+                 child: isShowingFront
+                     ? child
+                     : Container(color: Colors.grey[100]),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Stack/Depth transition
@@ -312,48 +295,47 @@ class StackDepthPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                final scale = 0.8 + (curvedAnimation.value * 0.2);
-                final translateY = (1 - curvedAnimation.value) * 100;
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               final scale = 0.8 + (curvedAnimation.value * 0.2);
+               final translateY = (1 - curvedAnimation.value) * 100;
 
-                return Transform(
-                  alignment: Alignment.bottomCenter,
-                  transform: Matrix4.identity()
-                    ..translate(0.0, translateY)
-                    ..scale(scale),
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2 * curvedAnimation.value),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: Opacity(
-                      opacity: curvedAnimation.value,
-                      child: child,
-                    ),
-                  ),
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Transform(
+                 alignment: Alignment.bottomCenter,
+                 transform: Matrix4.identity()
+                   ..translateByDouble(0.0, translateY, 0.0, 1.0)
+                   ..scaleByDouble(scale, scale, 1.0, 1.0),
+                 child: DecoratedBox(
+                   decoration: BoxDecoration(
+                     boxShadow: [
+                       BoxShadow(
+                         color: Colors.black.withValues(
+                           alpha: 0.2 * curvedAnimation.value,
+                         ),
+                         blurRadius: 20,
+                         offset: const Offset(0, 10),
+                       ),
+                     ],
+                   ),
+                   child: Opacity(opacity: curvedAnimation.value, child: child),
+                 ),
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Shutter transition (like camera shutter)
@@ -374,41 +356,38 @@ class ShutterPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                return ClipPath(
-                  clipper: _ShutterClipper(
-                    progress: curvedAnimation.value,
-                    blades: blades,
-                  ),
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               return ClipPath(
+                 clipper: _ShutterClipper(
+                   progress: curvedAnimation.value,
+                   blades: blades,
+                 ),
+                 child: child,
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 class _ShutterClipper extends CustomClipper<Path> {
   final double progress;
   final int blades;
 
-  _ShutterClipper({
-    required this.progress,
-    required this.blades,
-  });
+  _ShutterClipper({required this.progress, required this.blades});
 
   @override
   Path getClip(Size size) {
@@ -448,41 +427,38 @@ class WipePageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                return ClipPath(
-                  clipper: _WipeClipper(
-                    progress: curvedAnimation.value,
-                    shape: shape,
-                  ),
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               return ClipPath(
+                 clipper: _WipeClipper(
+                   progress: curvedAnimation.value,
+                   shape: shape,
+                 ),
+                 child: child,
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 class _WipeClipper extends CustomClipper<Path> {
   final double progress;
   final WipeShape shape;
 
-  _WipeClipper({
-    required this.progress,
-    required this.shape,
-  });
+  _WipeClipper({required this.progress, required this.shape});
 
   @override
   Path getClip(Size size) {
@@ -506,10 +482,12 @@ class _WipeClipper extends CustomClipper<Path> {
         final maxRadius = math.sqrt(
           math.pow(size.width / 2, 2) + math.pow(size.height / 2, 2),
         );
-        path.addOval(Rect.fromCircle(
-          center: Offset(size.width / 2, size.height / 2),
-          radius: progress * maxRadius,
-        ));
+        path.addOval(
+          Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2),
+            radius: progress * maxRadius,
+          ),
+        );
         break;
       case WipeShape.diamond:
         final center = Offset(size.width / 2, size.height / 2);
@@ -527,10 +505,12 @@ class _WipeClipper extends CustomClipper<Path> {
         final maxRadius = math.sqrt(
           math.pow(size.width / 2, 2) + math.pow(size.height / 2, 2),
         );
-        path.addOval(Rect.fromCircle(
-          center: Offset(size.width / 2, size.height / 2),
-          radius: progress * maxRadius,
-        ));
+        path.addOval(
+          Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2),
+            radius: progress * maxRadius,
+          ),
+        );
         break;
     }
 
@@ -561,50 +541,51 @@ class SpotlightPageTransition<T> extends PageRouteBuilder<T> {
     Curve reverseCurve = Curves.easeInOut,
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            final curvedAnimation = CurvedAnimation(
-              parent: animation,
-              curve: curve,
-              reverseCurve: reverseCurve,
-            );
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           final curvedAnimation = CurvedAnimation(
+             parent: animation,
+             curve: curve,
+             reverseCurve: reverseCurve,
+           );
 
-            return AnimatedBuilder(
-              animation: curvedAnimation,
-              builder: (context, _) {
-                return ShaderMask(
-                  shaderCallback: (bounds) {
-                    final centerX = (spotlightPosition.x + 1) / 2 * bounds.width;
-                    final centerY = (spotlightPosition.y + 1) / 2 * bounds.height;
-                    // ignore: unused_local_variable
-                    final maxRadius = math.sqrt(
-                      math.pow(bounds.width, 2) + math.pow(bounds.height, 2),
-                    );
+           return AnimatedBuilder(
+             animation: curvedAnimation,
+             builder: (context, _) {
+               return ShaderMask(
+                 shaderCallback: (bounds) {
+                   final centerX = (spotlightPosition.x + 1) / 2 * bounds.width;
+                   final centerY =
+                       (spotlightPosition.y + 1) / 2 * bounds.height;
+                   // ignore: unused_local_variable
+                   final maxRadius = math.sqrt(
+                     math.pow(bounds.width, 2) + math.pow(bounds.height, 2),
+                   );
 
-                    return RadialGradient(
-                      center: Alignment(
-                        (centerX / bounds.width) * 2 - 1,
-                        (centerY / bounds.height) * 2 - 1,
-                      ),
-                      radius: curvedAnimation.value * 2,
-                      colors: const [
-                        Colors.white,
-                        Colors.white,
-                        Colors.transparent,
-                      ],
-                      stops: const [0.0, 0.8, 1.0],
-                    ).createShader(bounds);
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+                   return RadialGradient(
+                     center: Alignment(
+                       (centerX / bounds.width) * 2 - 1,
+                       (centerY / bounds.height) * 2 - 1,
+                     ),
+                     radius: curvedAnimation.value * 2,
+                     colors: const [
+                       Colors.white,
+                       Colors.white,
+                       Colors.transparent,
+                     ],
+                     stops: const [0.0, 0.8, 1.0],
+                   ).createShader(bounds);
+                 },
+                 blendMode: BlendMode.dstIn,
+                 child: child,
+               );
+             },
+             child: child,
+           );
+         },
+       );
 }
 
 /// Pixelate transition
@@ -623,28 +604,25 @@ class PixelatePageTransition<T> extends PageRouteBuilder<T> {
     Duration reverseDuration = const Duration(milliseconds: 500),
     super.settings,
   }) : super(
-          pageBuilder: (context, animation, secondaryAnimation) => page,
-          transitionDuration: duration,
-          reverseTransitionDuration: reverseDuration,
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return AnimatedBuilder(
-              animation: animation,
-              builder: (context, _) {
-                final t = animation.value;
-                // Pixelation decreases as animation progresses
-                final pixelFactor = (1 - t) * maxPixelSize;
+         pageBuilder: (context, animation, secondaryAnimation) => page,
+         transitionDuration: duration,
+         reverseTransitionDuration: reverseDuration,
+         transitionsBuilder: (context, animation, secondaryAnimation, child) {
+           return AnimatedBuilder(
+             animation: animation,
+             builder: (context, _) {
+               final t = animation.value;
+               // Pixelation decreases as animation progresses
+               final pixelFactor = (1 - t) * maxPixelSize;
 
-                if (pixelFactor < 1) {
-                  return Opacity(opacity: t, child: child);
-                }
+               if (pixelFactor < 1) {
+                 return Opacity(opacity: t, child: child);
+               }
 
-                return Opacity(
-                  opacity: t.clamp(0.0, 1.0),
-                  child: child,
-                );
-              },
-              child: child,
-            );
-          },
-        );
+               return Opacity(opacity: t.clamp(0.0, 1.0), child: child);
+             },
+             child: child,
+           );
+         },
+       );
 }
