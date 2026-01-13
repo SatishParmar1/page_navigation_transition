@@ -303,7 +303,11 @@ SlidePageTransition(
 
 ### Other Packages by Author
 
-- 📸 [photo_opener_view](https://pub.dev/packages/photo_opener_view) - A beautiful photo viewer package for Flutter
+| Package | Description |
+|---------|-------------|
+| 📸 [photo_opener_view](https://pub.dev/packages/photo_opener_view) | A beautiful photo viewer package for Flutter |
+| ⭐ [smart_review_prompter](https://pub.dev/packages/smart_review_prompter) | Smart app review prompting for Flutter |
+| 🎬 [page_navigation_transition](https://pub.dev/packages/page_navigation_transition) | 110+ page navigation transitions |
 
 ## 🤝 Contributing
 
