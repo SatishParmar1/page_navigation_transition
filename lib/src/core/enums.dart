@@ -139,8 +139,8 @@ enum WipeShape {
   diagonal,
 }
 
-/// Enum defining transition themes
-enum TransitionTheme {
+/// Enum defining transition styles
+enum TransitionStyle {
   /// Elegant and subtle transitions
   elegant,
 

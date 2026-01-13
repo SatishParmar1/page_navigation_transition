@@ -1,5 +1,65 @@
 # Changelog
 
+## [1.1.0]
+
+### Added - New Features
+
+#### 🛤️ Named Route Support
+- `TransitionRouter` - Centralized route configuration with per-route transitions
+- `TransitionRouteBuilder` - Generate routes with transitions for `onGenerateRoute`
+- `TransitionRouteConfig` - Configure individual route transitions
+- `TransitionType` enum for specifying transition types
+- Extension methods: `pushNamedSlide`, `pushNamedFade`, `pushNamedScale`, `pushNamedCube`
+
+#### 🦸 Hero Transitions
+- `HeroSlidePageTransition` - Hero-aware slide transition
+- `HeroFadePageTransition` - Hero-aware fade transition
+- `HeroScalePageTransition` - Hero-aware scale transition
+- `HeroZoomPageTransition` - Hero-aware zoom transition
+- `HeroContainerTransformTransition` - Material container transform with hero
+- `HeroTransitionHelper` - Utilities for hero animations
+- `HeroTransitionWrapper` - Widget wrapper for hero setup
+
+#### 🎨 Transition Presets & Themes
+- `TransitionPreset` class with 8 pre-configured themes:
+  - `elegant` - Subtle, sophisticated animations
+  - `playful` - Bouncy, energetic animations
+  - `professional` - Clean, efficient animations
+  - `gaming` - Dramatic, impactful animations
+  - `minimal` - Fast, no-nonsense animations
+  - `iosStyle` - Native iOS feel
+  - `material` - Material Design standard
+  - `cinematic` - Slow, dramatic animations
+- `TransitionTheme` inherited widget for app-wide theming
+- `ThemedPageTransitions` - Automatically use theme preset
+
+#### 🔧 Custom Curve Builder
+- `CurveBuilder` - Fluent API for creating custom curves
+- `CustomSpringCurve` - Configurable spring physics
+- `CustomBounceCurve` - Configurable bounce with multiple bounces
+- `CustomElasticCurve` - Configurable elastic oscillation
+- `TransitionCurves` - 15+ pre-built curves library
+- `SegmentedCurve` - Multi-segment curve support
+
+#### 🎲 New 3D Effects (6 new transitions)
+- `OrigamiPageTransition` - Paper-folding effect with configurable folds
+- `PrismPageTransition` - Triangular prism rotation effect
+- `SpherePageTransition` - Spherical distortion effect
+- `ZStackPageTransition` - Depth stacking effect
+- `LayeredDepthPageTransition` - Multi-layer parallax depth
+- `HologramPageTransition` - Futuristic hologram with flicker effect
+
+#### ⚡ Performance Optimizations
+- `OptimizedTransitionWrapper` - RepaintBoundary wrapper
+- `CachedMatrixBuilder` - Matrix caching for 3D effects
+- `AccessibilityHelper` - Reduced motion detection and adaptation
+- `PerformanceConfig` - Configurable performance settings
+- `TransitionPerformanceMonitor` - Debug frame rate monitoring
+
+### Changed
+- `TransitionTheme` enum renamed to `TransitionStyle` to avoid naming conflict
+
+---
 
 ## [1.0.0]
 
@@ -36,14 +96,3 @@
 - ♿ Accessibility-friendly options (respects system reduce motion)
 - 📖 Well-documented API with examples
 - 🧪 Type-safe with generics support
-
----
-
-## [Unreleased]
-
-### Planned
-- Hero transition support
-- Custom curve builder
-- Transition presets/themes
-- More 3D effects
-- Performance optimizations

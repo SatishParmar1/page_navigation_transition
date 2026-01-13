@@ -14,7 +14,7 @@ A comprehensive Flutter package providing **100+ beautiful page navigation trans
 
 ## ✨ Features
 
-- **100+ Pre-built Transitions** organized into 13 categories
+- **110+ Pre-built Transitions** organized into 14 categories
 - **Type-safe** generic transitions
 - **Customizable** duration, curves, and parameters
 - **Extension methods** for easy navigation
@@ -23,23 +23,33 @@ A comprehensive Flutter package providing **100+ beautiful page navigation trans
 - **Zero dependencies** - only Flutter SDK required
 - **Cross-platform** - iOS, Android, Web, Desktop
 
+### 🆕 New Features (v1.1.0)
+
+- **Named Route Support** - Use transitions with `onGenerateRoute` and named routes
+- **Hero Transitions** - Hero-aware transitions that coordinate with Flutter's Hero widget
+- **Custom Curve Builder** - Fluent API for creating custom animation curves
+- **Transition Presets** - Pre-configured themes (Elegant, Playful, Professional, Gaming, Minimal)
+- **Performance Optimizations** - RepaintBoundary wrappers, matrix caching, reduced motion support
+
 ## 📦 Transition Categories
 
 | Category | Count | Examples |
 |----------|-------|----------|
-| 🎚️ **Slide** | 8 | Slide, Push, Cover, Reveal, Parallax, Elastic, Bouncy |
-| 🌫️ **Fade** | 7 | Fade, FadeScale, FadeRotation, FadeThrough, CrossFade |
-| 🔍 **Scale** | 8 | Scale, Zoom In/Out, Pop, Shrink/Grow |
+| 🎚️ **Slide** | 9 | Slide, Push, Cover, Reveal, Parallax, Elastic, Bouncy |
+| 🌫️ **Fade** | 8 | Fade, FadeScale, FadeRotation, FadeThrough, CrossFade |
+| 🔍 **Scale** | 10 | Scale, Zoom In/Out, Pop, Shrink/Grow |
 | 🔄 **Rotation** | 9 | Rotate, Flip H/V, Spin, Door, Tilt |
-| 📐 **Size** | 6 | Expand H/V, Split, Unfold, ClipRect |
-| 🎨 **Material Design** | 6 | Shared Axis, Container Transform, Elevation |
-| 🍎 **iOS Style** | 7 | Cupertino, Modal, Sheet, Page Curl, App Store Card |
-| 🎲 **3D Effects** | 9 | Cube, Card Flip, Carousel, Cover Flow, Perspective |
-| ⚡ **Physics-based** | 7 | Spring, Gravity, Elastic Bounce, Pendulum |
+| 📐 **Size** | 8 | Expand H/V, Split, Unfold, ClipRect |
+| 🎨 **Material Design** | 5 | Shared Axis, Container Transform, Elevation |
+| 🍎 **iOS Style** | 6 | Cupertino, Modal, Sheet, Page Curl, App Store Card |
+| 🎲 **3D Effects** | 16 | Cube, Card Flip, Carousel, Origami, Prism, Sphere, Hologram |
+| ⚡ **Physics-based** | 9 | Spring, Gravity, Elastic Bounce, Pendulum |
 | ✨ **Custom Effects** | 10 | Circular Reveal, Blur, Glitch, Accordion, Wipe |
 | 💎 **Modern UI** | 9 | Glassmorphism, Liquid Swipe, Gooey, Neumorphism |
-| 📱 **Social Media** | 8 | Story, Reels, Snap, Swipe Card, Stacked Cards |
+| 📱 **Social Media** | 11 | Story, Reels, Snap, Swipe Card, Stacked Cards |
 | ♿ **Accessibility** | 7 | No Animation, Simple Fade, Adaptive |
+| 🦸 **Hero** | 5 | HeroSlide, HeroFade, HeroScale, HeroZoom, HeroContainer |
+
 
 ## 🚀 Getting Started
 
@@ -286,6 +296,169 @@ SlidePageTransition(
 );
 ```
 
+## 🛤️ Named Route Support
+
+Use transitions with Flutter's named routes via `TransitionRouter`:
+
+```dart
+// Setup in MaterialApp
+final router = TransitionRouter(
+  routes: {
+    '/': TransitionRouteConfig(
+      builder: (context) => HomePage(),
+      transitionType: TransitionType.fade,
+    ),
+    '/details': TransitionRouteConfig(
+      builder: (context) => DetailsPage(),
+      transitionType: TransitionType.slide,
+    ),
+  },
+);
+
+MaterialApp(
+  onGenerateRoute: router.onGenerateRoute,
+  initialRoute: '/',
+)
+```
+
+Or use `TransitionRouteBuilder` for simpler setup:
+
+```dart
+MaterialApp(
+  onGenerateRoute: (settings) => TransitionRouteBuilder.generateRoute(
+    settings,
+    routes: {
+      '/': (context) => HomePage(),
+      '/profile': (context) => ProfilePage(),
+    },
+    defaultTransition: TransitionType.cupertino,
+  ),
+)
+```
+
+## 🦸 Hero Transitions
+
+Coordinate page transitions with Hero widget animations:
+
+```dart
+// Hero-aware slide transition
+Navigator.push(context, HeroSlidePageTransition(
+  page: DetailPage(),
+  heroTag: 'product-${product.id}',
+  direction: SlideDirection.fromRight,
+));
+
+// Hero-aware scale transition
+Navigator.push(context, HeroScalePageTransition(
+  page: DetailPage(),
+  heroTag: 'avatar',
+  beginScale: 0.8,
+));
+
+// Hero container transform (Material Design)
+Navigator.push(context, HeroContainerTransformTransition(
+  page: DetailPage(),
+  heroTag: 'card-${item.id}',
+  containerColor: Colors.white,
+));
+```
+
+## 🎨 Transition Presets
+
+Use pre-configured themes for consistent animations:
+
+```dart
+// Wrap your app with TransitionTheme
+TransitionTheme(
+  preset: TransitionPreset.elegant,
+  child: MaterialApp(...),
+)
+
+// Available presets:
+TransitionPreset.elegant      // Subtle, sophisticated
+TransitionPreset.playful      // Bouncy, energetic
+TransitionPreset.professional // Clean, efficient
+TransitionPreset.gaming       // Dramatic, impactful
+TransitionPreset.minimal      // Fast, no-nonsense
+TransitionPreset.iosStyle     // Native iOS feel
+TransitionPreset.material     // Material Design standard
+TransitionPreset.cinematic    // Slow, dramatic
+```
+
+Use themed transitions that automatically respect the preset:
+
+```dart
+Navigator.push(context, ThemedPageTransitions.slide(context, NextPage()));
+Navigator.push(context, ThemedPageTransitions.fade(context, NextPage()));
+```
+
+## 🔧 Custom Curve Builder
+
+Create custom animation curves with a fluent API:
+
+```dart
+// Spring curve
+final springCurve = CurveBuilder()
+  .spring(damping: 0.7, stiffness: 100)
+  .build();
+
+// Bounce curve
+final bounceCurve = CurveBuilder()
+  .bounce(bounces: 3, bounciness: 0.5)
+  .build();
+
+// Pre-built curves
+TransitionCurves.smoothSpring
+TransitionCurves.gentleBounce
+TransitionCurves.snappy
+TransitionCurves.dramatic
+TransitionCurves.overshoot
+```
+
+## 🎲 New 3D Effects
+
+Six additional stunning 3D transitions:
+
+```dart
+// Origami paper-folding effect
+Navigator.push(context, OrigamiPageTransition(
+  page: NextPage(),
+  folds: 3,
+  foldAxis: Axis.horizontal,
+));
+
+// Prism triangular rotation
+Navigator.push(context, PrismPageTransition(
+  page: NextPage(),
+  clockwise: true,
+));
+
+// Sphere mapping effect
+Navigator.push(context, SpherePageTransition(
+  page: NextPage(),
+  radiusFactor: 1.0,
+));
+
+// Z-Stack depth effect
+Navigator.push(context, ZStackPageTransition(
+  page: NextPage(),
+  depth: 200.0,
+));
+
+// Layered parallax depth
+Navigator.push(context, LayeredDepthPageTransition(
+  page: NextPage(),
+  layers: 3,
+));
+
+// Futuristic hologram
+Navigator.push(context, HologramPageTransition(
+  page: NextPage(),
+  hologramColor: Colors.cyan,
+  flickerIntensity: 0.3,
+));
+```
+
 ## 📋 Enums
 
 ### SlideDirection
@@ -299,8 +472,14 @@ SlidePageTransition(
 ### SharedAxisDirection
 - `horizontal`, `vertical`
 
+### TransitionType (for named routes)
+- `slide`, `slideUp`, `fade`, `fadeScale`, `scale`
+- `rotation`, `cubeHorizontal`, `cubeVertical`, `cardFlip`
+- `cupertino`, `sharedAxis`, `spring`, `circularReveal`, `none`
+
 ### WipeShape
 - `horizontal`, `vertical`, `diagonal`
+
 
 ## 🤝 Contributing
 

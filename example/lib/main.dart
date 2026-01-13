@@ -2,36 +2,47 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:page_navigation_transition/page_navigation_transition.dart';
 
-// Professional color palette
+// ============ Premium Silver Theme ============
 class AppColors {
-  static const background = Color(0xFF0F172A); // slate-900
-  static const backgroundAlt = Color(0xFF020617); // deep navy
-  static const surface = Color(0xFF111827); // slate-800
-  static const surfaceLight = Color(0xFF1E293B); // slate-700
+  // Silver/Metallic Base
+  static const background = Color(0xFF0A0A0F);
+  static const backgroundGradientStart = Color(0xFF0F0F14);
+  static const backgroundGradientEnd = Color(0xFF050508);
 
-  // Borders & dividers
-  static const border = Color(0xFF334155);
-  static const borderLight = Color(0xFF475569);
+  // Metallic Surfaces
+  static const surface = Color(0xFF16161D);
+  static const surfaceLight = Color(0xFF1E1E26);
+  static const surfaceElevated = Color(0xFF24242E);
+
+  // Silver Accents
+  static const silver = Color(0xFFC0C0C8);
+  static const silverLight = Color(0xFFE8E8F0);
+  static const silverDark = Color(0xFF8A8A94);
+
+  // Borders
+  static const border = Color(0xFF2A2A35);
+  static const borderLight = Color(0xFF3A3A48);
+  static const glowBorder = Color(0xFF4A4A58);
 
   // Text
-  static const textPrimary = Color(0xFFF8FAFC);
-  static const textSecondary = Color(0xFFCBD5E1);
-  static const textMuted = Color(0xFF94A3B8);
+  static const textPrimary = Color(0xFFF5F5FA);
+  static const textSecondary = Color(0xFFB8B8C4);
+  static const textMuted = Color(0xFF6E6E7A);
 
-  // Primary accent (Blue)
-  static const accent = Color(0xFF3B82F6);
-  static const accentLight = Color(0xFF60A5FA);
+  // Accent Colors
+  static const accent = Color(0xFF7C7CFF); // Soft purple
+  static const accentLight = Color(0xFFA5A5FF);
+  static const accentGlow = Color(0xFF5050FF);
 
-  // Secondary accents
-  static const purple = Color(0xFF8B5CF6);
-  static const teal = Color(0xFF14B8A6);
-  static const cyan = Color(0xFF22D3EE);
-
-  // Status
-  static const success = Color(0xFF22C55E);
-  static const warning = Color(0xFFFACC15);
-  static const error = Color(0xFFEF4444);
-  static const info = Color(0xFF38BDF8);
+  // Category Colors
+  static const blue = Color(0xFF5B8DEF);
+  static const purple = Color(0xFF9B7AEA);
+  static const pink = Color(0xFFE879B9);
+  static const orange = Color(0xFFE89B5C);
+  static const green = Color(0xFF5ECD97);
+  static const cyan = Color(0xFF5BC9D9);
+  static const red = Color(0xFFE87979);
+  static const teal = Color(0xFF4BC9B0);
 }
 
 void main() {
@@ -52,164 +63,185 @@ class TransitionShowcaseApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Page Transitions',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: AppColors.background,
-        colorScheme: const ColorScheme.dark(
-          primary: AppColors.accent,
-          secondary: AppColors.accentLight,
-          surface: AppColors.surface,
-          onSurface: AppColors.textPrimary,
-        ),
-        textTheme: const TextTheme(
-          headlineLarge: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.w600,
-            letterSpacing: -0.5,
-            color: AppColors.textPrimary,
+    return TransitionTheme(
+      preset: TransitionPreset.elegant,
+      child: MaterialApp(
+        title: 'Page Transitions Pro',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: AppColors.background,
+          colorScheme: const ColorScheme.dark(
+            primary: AppColors.accent,
+            secondary: AppColors.accentLight,
+            surface: AppColors.surface,
+            onSurface: AppColors.textPrimary,
           ),
-          titleLarge: TextStyle(
-            fontSize: 17,
-            fontWeight: FontWeight.w500,
-            color: AppColors.textPrimary,
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textSecondary,
-          ),
-          bodyMedium: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: AppColors.textMuted,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
         ),
+        home: const HomeScreen(),
       ),
-      home: const TransitionShowcaseHome(),
     );
   }
 }
 
-// Category data model
+// ============ Data Models ============
 class CategoryData {
   final String title;
   final String subtitle;
   final IconData icon;
-  final Color iconColor;
+  final Color color;
   final List<TransitionItem> transitions;
+  final bool isNew;
 
   const CategoryData({
     required this.title,
     required this.subtitle,
     required this.icon,
-    required this.iconColor,
+    required this.color,
     required this.transitions,
+    this.isNew = false,
   });
 }
 
-class TransitionShowcaseHome extends StatefulWidget {
-  const TransitionShowcaseHome({super.key});
+class TransitionItem {
+  final String name;
+  final String description;
+  final PageRouteBuilder Function(Widget page) route;
+  final bool isNew;
 
-  @override
-  State<TransitionShowcaseHome> createState() => _TransitionShowcaseHomeState();
+  const TransitionItem({
+    required this.name,
+    required this.description,
+    required this.route,
+    this.isNew = false,
+  });
 }
 
-class _TransitionShowcaseHomeState extends State<TransitionShowcaseHome>
-    with TickerProviderStateMixin {
-  late final List<AnimationController> _staggeredControllers;
+// ============ Home Screen ============
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+  late ScrollController _scrollController;
+  late AnimationController _fadeController;
+  int _selectedPresetIndex = 0;
+
+  final presets = [
+    ('Elegant', TransitionPreset.elegant, AppColors.purple),
+    ('Playful', TransitionPreset.playful, AppColors.pink),
+    ('Professional', TransitionPreset.professional, AppColors.blue),
+    ('Gaming', TransitionPreset.gaming, AppColors.red),
+    ('Minimal', TransitionPreset.minimal, AppColors.green),
+  ];
 
   final List<CategoryData> categories = [
+    // New Categories First
+    CategoryData(
+      title: 'Hero',
+      subtitle: '5 transitions',
+      icon: Icons.animation_rounded,
+      color: AppColors.accent,
+      isNew: true,
+      transitions: heroTransitions,
+    ),
+    CategoryData(
+      title: '3D Effects',
+      subtitle: '16 transitions',
+      icon: Icons.view_in_ar_rounded,
+      color: AppColors.red,
+      isNew: true,
+      transitions: threeDTransitions,
+    ),
+    // Standard Categories
     CategoryData(
       title: 'Slide',
       subtitle: '9 transitions',
-      icon: Icons.swap_horiz_rounded,
-      iconColor: const Color(0xFF3B82F6),
+      icon: Icons.swipe_rounded,
+      color: AppColors.blue,
       transitions: slideTransitions,
     ),
     CategoryData(
       title: 'Fade',
       subtitle: '8 transitions',
       icon: Icons.blur_on_rounded,
-      iconColor: const Color(0xFF8B5CF6),
+      color: AppColors.purple,
       transitions: fadeTransitions,
     ),
     CategoryData(
       title: 'Scale',
       subtitle: '10 transitions',
       icon: Icons.zoom_out_map_rounded,
-      iconColor: const Color(0xFFEC4899),
+      color: AppColors.pink,
       transitions: scaleTransitions,
     ),
     CategoryData(
       title: 'Rotation',
       subtitle: '9 transitions',
       icon: Icons.rotate_right_rounded,
-      iconColor: const Color(0xFFF59E0B),
+      color: AppColors.orange,
       transitions: rotationTransitions,
     ),
     CategoryData(
-      title: 'Size',
-      subtitle: '8 transitions',
-      icon: Icons.aspect_ratio_rounded,
-      iconColor: const Color(0xFF10B981),
-      transitions: sizeTransitions,
+      title: 'Physics',
+      subtitle: '9 transitions',
+      icon: Icons.sports_tennis_rounded,
+      color: AppColors.teal,
+      transitions: physicsTransitions,
+    ),
+    CategoryData(
+      title: 'iOS Style',
+      subtitle: '6 transitions',
+      icon: Icons.phone_iphone_rounded,
+      color: AppColors.silverDark,
+      transitions: iosTransitions,
     ),
     CategoryData(
       title: 'Material',
       subtitle: '5 transitions',
       icon: Icons.android_rounded,
-      iconColor: const Color(0xFF06B6D4),
+      color: AppColors.green,
       transitions: materialTransitions,
     ),
     CategoryData(
-      title: 'iOS',
-      subtitle: '6 transitions',
-      icon: Icons.phone_iphone_rounded,
-      iconColor: const Color(0xFF71717A),
-      transitions: iosTransitions,
-    ),
-    CategoryData(
-      title: '3D',
-      subtitle: '10 transitions',
-      icon: Icons.view_in_ar_rounded,
-      iconColor: const Color(0xFFEF4444),
-      transitions: threeDTransitions,
-    ),
-    CategoryData(
-      title: 'Physics',
+      title: 'Modern UI',
       subtitle: '9 transitions',
-      icon: Icons.sports_baseball_rounded,
-      iconColor: const Color(0xFFF97316),
-      transitions: physicsTransitions,
+      icon: Icons.blur_circular_rounded,
+      color: AppColors.cyan,
+      transitions: modernTransitions,
+    ),
+    CategoryData(
+      title: 'Size',
+      subtitle: '8 transitions',
+      icon: Icons.aspect_ratio_rounded,
+      color: AppColors.orange,
+      transitions: sizeTransitions,
     ),
     CategoryData(
       title: 'Custom',
       subtitle: '10 transitions',
       icon: Icons.auto_awesome_rounded,
-      iconColor: const Color(0xFF8B5CF6),
+      color: AppColors.purple,
       transitions: customTransitions,
-    ),
-    CategoryData(
-      title: 'Modern',
-      subtitle: '9 transitions',
-      icon: Icons.blur_circular_rounded,
-      iconColor: const Color(0xFF0EA5E9),
-      transitions: modernTransitions,
     ),
     CategoryData(
       title: 'Social',
       subtitle: '11 transitions',
       icon: Icons.photo_camera_rounded,
-      iconColor: const Color(0xFFE11D48),
+      color: AppColors.pink,
       transitions: socialTransitions,
     ),
     CategoryData(
       title: 'Accessibility',
       subtitle: '7 transitions',
       icon: Icons.accessibility_new_rounded,
-      iconColor: const Color(0xFF14B8A6),
+      color: AppColors.green,
       transitions: accessibilityTransitions,
     ),
   ];
@@ -217,200 +249,77 @@ class _TransitionShowcaseHomeState extends State<TransitionShowcaseHome>
   @override
   void initState() {
     super.initState();
-    _staggeredControllers = List.generate(
-      categories.length,
-      (index) => AnimationController(
-        vsync: this,
-        duration: const Duration(milliseconds: 400),
-      ),
-    );
-    _startStaggeredAnimation();
-  }
-
-  void _startStaggeredAnimation() async {
-    await Future.delayed(const Duration(milliseconds: 100));
-    for (int i = 0; i < _staggeredControllers.length; i++) {
-      await Future.delayed(const Duration(milliseconds: 40));
-      if (mounted) {
-        _staggeredControllers[i].forward();
-      }
-    }
+    _scrollController = ScrollController();
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 600),
+    )..forward();
   }
 
   @override
   void dispose() {
-    for (var controller in _staggeredControllers) {
-      controller.dispose();
-    }
+    _scrollController.dispose();
+    _fadeController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.backgroundGradientStart,
+              AppColors.backgroundGradientEnd,
+            ],
+          ),
+        ),
         child: CustomScrollView(
+          controller: _scrollController,
           physics: const BouncingScrollPhysics(),
           slivers: [
-            // Header
+            // Custom App Bar
+            _buildSliverAppBar(),
+
+            // Stats Section
+            SliverToBoxAdapter(child: _buildStatsSection()),
+
+            // Preset Selector
+            SliverToBoxAdapter(child: _buildPresetSection()),
+
+            // Categories Header
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                padding: const EdgeInsets.fromLTRB(20, 24, 20, 12),
+                child: Row(
                   children: [
-                    // Title
-                    const Text(
-                      'Page Transitions',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    const Text(
-                      'Explore 101 beautiful animation effects',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: AppColors.textSecondary,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    // Search/filter bar (decorative)
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 14,
-                        vertical: 12,
-                      ),
+                      width: 3,
+                      height: 18,
                       decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.border),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.search_rounded,
-                            color: AppColors.textMuted,
-                            size: 20,
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            'Search transitions...',
-                            style: TextStyle(
-                              color: AppColors.textMuted,
-                              fontSize: 14,
-                            ),
-                          ),
-                          const Spacer(),
-                          Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 4,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColors.surfaceLight,
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: Text(
-                              '⌘ K',
-                              style: TextStyle(
-                                color: AppColors.textMuted,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ],
+                        color: AppColors.accent,
+                        borderRadius: BorderRadius.circular(2),
                       ),
                     ),
-                    const SizedBox(height: 16),
-                    // Stats row with color
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.accent.withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: AppColors.accent.withValues(alpha: 0.2),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.folder_rounded,
-                                color: AppColors.accent,
-                                size: 16,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                '13 categories',
-                                style: TextStyle(
-                                  color: AppColors.accent,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF10B981,
-                            ).withValues(alpha: 0.1),
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              color: const Color(
-                                0xFF10B981,
-                              ).withValues(alpha: 0.2),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon(
-                                Icons.auto_awesome_rounded,
-                                color: const Color(0xFF10B981),
-                                size: 16,
-                              ),
-                              const SizedBox(width: 6),
-                              Text(
-                                '101 effects',
-                                style: TextStyle(
-                                  color: const Color(0xFF10B981),
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 24),
-                    // Section title
-                    Text(
-                      'Categories',
+                    const SizedBox(width: 10),
+                    const Text(
+                      'CATEGORIES',
                       style: TextStyle(
+                        color: AppColors.textMuted,
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
+                        letterSpacing: 1.5,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '${categories.length} groups',
+                      style: const TextStyle(
                         color: AppColors.textMuted,
-                        letterSpacing: 0.8,
+                        fontSize: 12,
                       ),
                     ),
                   ],
@@ -418,31 +327,339 @@ class _TransitionShowcaseHomeState extends State<TransitionShowcaseHome>
               ),
             ),
 
-            // Categories list
+            // Category Grid
             SliverPadding(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  return AnimatedBuilder(
-                    animation: _staggeredControllers[index],
-                    builder: (context, child) {
-                      final animation = CurvedAnimation(
-                        parent: _staggeredControllers[index],
-                        curve: Curves.easeOut,
-                      );
-                      return Transform.translate(
-                        offset: Offset(0, 20 * (1 - animation.value)),
-                        child: Opacity(
-                          opacity: animation.value.clamp(0.0, 1.0),
-                          child: _CategoryListItem(
-                            category: categories[index],
-                            isLast: index == categories.length - 1,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              sliver: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1.4,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => _CategoryCard(
+                    category: categories[index],
+                    index: index,
+                    animation: _fadeController,
+                  ),
+                  childCount: categories.length,
+                ),
+              ),
+            ),
+
+            // Footer
+            const SliverToBoxAdapter(child: SizedBox(height: 100)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSliverAppBar() {
+    return SliverAppBar(
+      expandedHeight: 140,
+      floating: false,
+      pinned: true,
+      backgroundColor: Colors.transparent,
+      flexibleSpace: FlexibleSpaceBar(
+        background: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    // Logo
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            AppColors.accent.withValues(alpha: 0.2),
+                            AppColors.accentGlow.withValues(alpha: 0.1),
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: AppColors.accent.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: const Icon(
+                        Icons.animation_rounded,
+                        color: AppColors.accent,
+                        size: 24,
+                      ),
+                    ),
+                    const SizedBox(width: 14),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Page Transitions',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: -0.5,
                           ),
                         ),
-                      );
-                    },
-                  );
-                }, childCount: categories.length),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Pro Edition • v1.1.0',
+                          style: TextStyle(
+                            color: AppColors.textMuted,
+                            fontSize: 13,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    // Settings button
+                    _IconButton(
+                      icon: Icons.tune_rounded,
+                      onTap: () => _showSettingsSheet(context),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildStatsSection() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+      child: Row(
+        children: [
+          _StatCard(
+            icon: Icons.auto_awesome_rounded,
+            label: 'Effects',
+            value: '110+',
+            color: AppColors.accent,
+          ),
+          const SizedBox(width: 12),
+          _StatCard(
+            icon: Icons.folder_rounded,
+            label: 'Categories',
+            value: '14',
+            color: AppColors.blue,
+          ),
+          const SizedBox(width: 12),
+          _StatCard(
+            icon: Icons.new_releases_rounded,
+            label: 'New',
+            value: '11',
+            color: AppColors.green,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPresetSection() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.palette_rounded, size: 16, color: AppColors.textMuted),
+              SizedBox(width: 8),
+              Text(
+                'TRANSITION PRESET',
+                style: TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.2,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 40,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: presets.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
+              itemBuilder: (context, index) {
+                final (name, _, color) = presets[index];
+                final isSelected = index == _selectedPresetIndex;
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedPresetIndex = index),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    decoration: BoxDecoration(
+                      color: isSelected
+                          ? color.withValues(alpha: 0.15)
+                          : AppColors.surface,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: isSelected
+                            ? color.withValues(alpha: 0.5)
+                            : AppColors.border,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        name,
+                        style: TextStyle(
+                          color: isSelected ? color : AppColors.textSecondary,
+                          fontSize: 13,
+                          fontWeight: isSelected
+                              ? FontWeight.w600
+                              : FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSettingsSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        padding: const EdgeInsets.all(24),
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: AppColors.border,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Settings',
+              style: TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            const SizedBox(height: 24),
+            _SettingsTile(
+              icon: Icons.speed_rounded,
+              title: 'Performance Mode',
+              subtitle: 'Enable RepaintBoundary wrappers',
+            ),
+            _SettingsTile(
+              icon: Icons.accessibility_rounded,
+              title: 'Reduce Motion',
+              subtitle: 'Respect system accessibility settings',
+            ),
+            const SizedBox(height: 24),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ============ Components ============
+
+class _IconButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const _IconButton({required this.icon, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Icon(icon, color: AppColors.textSecondary, size: 20),
+      ),
+    );
+  }
+}
+
+class _StatCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  const _StatCard({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        decoration: BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: color, size: 16),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    value,
+                    style: const TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    label,
+                    style: const TextStyle(
+                      color: AppColors.textMuted,
+                      fontSize: 11,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
           ],
@@ -452,87 +669,385 @@ class _TransitionShowcaseHomeState extends State<TransitionShowcaseHome>
   }
 }
 
-class _CategoryListItem extends StatefulWidget {
+class _CategoryCard extends StatelessWidget {
   final CategoryData category;
-  final bool isLast;
+  final int index;
+  final Animation<double> animation;
 
-  const _CategoryListItem({required this.category, this.isLast = false});
+  const _CategoryCard({
+    required this.category,
+    required this.index,
+    required this.animation,
+  });
 
   @override
-  State<_CategoryListItem> createState() => _CategoryListItemState();
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (context, child) {
+        final delay = index * 0.05;
+        final progress = ((animation.value - delay) / (1 - delay)).clamp(
+          0.0,
+          1.0,
+        );
+
+        return Transform.translate(
+          offset: Offset(0, 20 * (1 - progress)),
+          child: Opacity(opacity: progress, child: child),
+        );
+      },
+      child: GestureDetector(
+        onTap: () => Navigator.push(
+          context,
+          FadeScalePageTransition(
+            page: CategoryDetailScreen(category: category),
+          ),
+        ),
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: category.color.withValues(alpha: 0.12),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Icon(category.icon, color: category.color, size: 20),
+                  ),
+                  const Spacer(),
+                  if (category.isNew)
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.green.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: const Text(
+                        'NEW',
+                        style: TextStyle(
+                          color: AppColors.green,
+                          fontSize: 9,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 0.5,
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+              const Spacer(),
+              Text(
+                category.title,
+                style: const TextStyle(
+                  color: AppColors.textPrimary,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                category.subtitle,
+                style: const TextStyle(
+                  color: AppColors.textMuted,
+                  fontSize: 12,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
-class _CategoryListItemState extends State<_CategoryListItem> {
-  bool _isHovered = false;
+class _SettingsTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String subtitle;
+
+  const _SettingsTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: 12),
+      decoration: BoxDecoration(
+        color: AppColors.surfaceLight,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, color: AppColors.textSecondary, size: 22),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: AppColors.textMuted,
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Switch.adaptive(
+            value: true,
+            onChanged: (_) {},
+            activeTrackColor: AppColors.accent,
+            thumbColor: WidgetStateProperty.all(Colors.white),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ============ Category Detail Screen ============
+class CategoryDetailScreen extends StatelessWidget {
+  final CategoryData category;
+
+  const CategoryDetailScreen({super.key, required this.category});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.backgroundGradientStart,
+              AppColors.backgroundGradientEnd,
+            ],
+          ),
+        ),
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            // App Bar
+            SliverAppBar(
+              expandedHeight: 120,
+              floating: false,
+              pinned: true,
+              backgroundColor: AppColors.background.withValues(alpha: 0.9),
+              leading: Padding(
+                padding: const EdgeInsets.all(8),
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      color: AppColors.textPrimary,
+                      size: 18,
+                    ),
+                  ),
+                ),
+              ),
+              flexibleSpace: FlexibleSpaceBar(
+                background: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(60, 16, 20, 0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: category.color.withValues(alpha: 0.15),
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: category.color.withValues(alpha: 0.3),
+                                ),
+                              ),
+                              child: Icon(
+                                category.icon,
+                                color: category.color,
+                                size: 24,
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${category.title} Transitions',
+                                  style: const TextStyle(
+                                    color: AppColors.textPrimary,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '${category.transitions.length} effects available',
+                                  style: const TextStyle(
+                                    color: AppColors.textMuted,
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
+            // Transitions List
+            SliverPadding(
+              padding: const EdgeInsets.all(20),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => _TransitionTile(
+                    item: category.transitions[index],
+                    index: index,
+                    color: category.color,
+                  ),
+                  childCount: category.transitions.length,
+                ),
+              ),
+            ),
+
+            const SliverToBoxAdapter(child: SizedBox(height: 40)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TransitionTile extends StatelessWidget {
+  final TransitionItem item;
+  final int index;
+  final Color color;
+
+  const _TransitionTile({
+    required this.item,
+    required this.index,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (_) => setState(() => _isHovered = true),
-      onTapUp: (_) => setState(() => _isHovered = false),
-      onTapCancel: () => setState(() => _isHovered = false),
-      onTap: () {
-        Navigator.push(
-          context,
-          FadeScalePageTransition(
-            page: TransitionListPage(
-              title: widget.category.title,
-              iconColor: widget.category.iconColor,
-              transitions: widget.category.transitions,
-            ),
-          ),
-        );
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        margin: EdgeInsets.only(bottom: widget.isLast ? 0 : 2),
+      onTap: () => Navigator.push(context, item.route(const DemoScreen())),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 10),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: _isHovered ? AppColors.surface : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
+          color: AppColors.surface,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.border),
         ),
         child: Row(
           children: [
-            // Icon
             Container(
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: widget.category.iconColor.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
+                color: color.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Icon(
-                widget.category.icon,
-                color: widget.category.iconColor,
-                size: 20,
+              child: Center(
+                child: Text(
+                  '${index + 1}',
+                  style: TextStyle(
+                    color: color,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                  ),
+                ),
               ),
             ),
             const SizedBox(width: 14),
-            // Text
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.category.title,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textPrimary,
-                    ),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          item.name,
+                          style: const TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      if (item.isNew) ...[
+                        const SizedBox(width: 8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.green.withValues(alpha: 0.15),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: const Text(
+                            'NEW',
+                            style: TextStyle(
+                              color: AppColors.green,
+                              fontSize: 8,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    widget.category.subtitle,
+                    item.description,
                     style: const TextStyle(
-                      fontSize: 13,
                       color: AppColors.textMuted,
+                      fontSize: 12,
                     ),
                   ),
                 ],
               ),
             ),
-            // Arrow
             Icon(
               Icons.chevron_right_rounded,
               color: AppColors.textMuted,
@@ -545,40 +1060,39 @@ class _CategoryListItemState extends State<_CategoryListItem> {
   }
 }
 
-class TransitionListPage extends StatelessWidget {
-  final String title;
-  final Color iconColor;
-  final List<TransitionItem> transitions;
-
-  const TransitionListPage({
-    super.key,
-    required this.title,
-    required this.iconColor,
-    required this.transitions,
-  });
+// ============ Demo Screen ============
+class DemoScreen extends StatelessWidget {
+  const DemoScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // Header
-          SliverToBoxAdapter(
-            child: SafeArea(
-              bottom: false,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              AppColors.backgroundGradientStart,
+              AppColors.backgroundGradientEnd,
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              // Top bar
+              Padding(
+                padding: const EdgeInsets.all(20),
                 child: Row(
                   children: [
                     GestureDetector(
                       onTap: () => Navigator.pop(context),
                       child: Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
                           color: AppColors.surface,
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12),
                           border: Border.all(color: AppColors.border),
                         ),
                         child: const Icon(
@@ -588,333 +1102,237 @@ class TransitionListPage extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 14),
-                    Expanded(
-                      child: Text(
-                        '$title Transitions',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textPrimary,
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 5,
-                      ),
-                      decoration: BoxDecoration(
-                        color: iconColor.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        '${transitions.length}',
-                        style: TextStyle(
-                          color: iconColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
-            ),
-          ),
-          // Transitions list
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate((context, index) {
-                return _TransitionTile(
-                  item: transitions[index],
-                  iconColor: iconColor,
-                  index: index,
-                );
-              }, childCount: transitions.length),
-            ),
-          ),
 
-          const SliverToBoxAdapter(child: SizedBox(height: 40)),
-        ],
-      ),
-    );
-  }
-}
-
-class _TransitionTile extends StatefulWidget {
-  final TransitionItem item;
-  final Color iconColor;
-  final int index;
-
-  const _TransitionTile({
-    required this.item,
-    required this.iconColor,
-    required this.index,
-  });
-
-  @override
-  State<_TransitionTile> createState() => _TransitionTileState();
-}
-
-class _TransitionTileState extends State<_TransitionTile> {
-  bool _isPressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTapDown: (_) => setState(() => _isPressed = true),
-      onTapUp: (_) => setState(() => _isPressed = false),
-      onTapCancel: () => setState(() => _isPressed = false),
-      onTap: () {
-        Navigator.push(context, widget.item.route(const DemoPage()));
-      },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        margin: const EdgeInsets.only(bottom: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-        decoration: BoxDecoration(
-          color: _isPressed ? AppColors.surface : Colors.transparent,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Row(
-          children: [
-            // Index badge
-            Container(
-              width: 36,
-              height: 36,
-              decoration: BoxDecoration(
-                color: widget.iconColor.withValues(alpha: 0.12),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Center(
-                child: Text(
-                  '${widget.index + 1}',
-                  style: TextStyle(
-                    color: widget.iconColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(width: 14),
-            // Text content
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.item.name,
-                    style: const TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.textPrimary,
+              // Content
+              Expanded(
+                child: Center(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: const EdgeInsets.all(32),
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: AppColors.border),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.accentGlow.withValues(alpha: 0.1),
+                          blurRadius: 40,
+                          spreadRadius: -10,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    widget.item.description,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      color: AppColors.textMuted,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            ),
-            // Arrow
-            Icon(
-              Icons.chevron_right_rounded,
-              color: AppColors.textMuted,
-              size: 20,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class DemoPage extends StatelessWidget {
-  const DemoPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Top bar
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: AppColors.borderLight),
-                      ),
-                      child: const Icon(
-                        Icons.arrow_back_ios_new_rounded,
-                        color: AppColors.textPrimary,
-                        size: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Main content
-            Expanded(
-              child: Center(
-                child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 24),
-                  padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(
-                    color: AppColors.surface,
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.border),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // Success icon with gradient glow
-                      Container(
-                        width: 88,
-                        height: 88,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              AppColors.accent.withValues(alpha: 0.25),
-                              AppColors.accentLight.withValues(alpha: 0.15),
-                            ],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Success icon
+                        Container(
+                          width: 80,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              colors: [
+                                AppColors.accent.withValues(alpha: 0.2),
+                                AppColors.accentGlow.withValues(alpha: 0.1),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                          borderRadius: BorderRadius.circular(22),
-                        ),
-                        child: const Icon(
-                          Icons.check_rounded,
-                          size: 42,
-                          color: AppColors.accent,
-                        ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      const Text(
-                        'Transition Complete',
-                        style: TextStyle(
-                          color: AppColors.textPrimary,
-                          fontSize: 24,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-
-                      const SizedBox(height: 8),
-
-                      Text(
-                        'Everything went smoothly',
-                        style: TextStyle(
-                          color: AppColors.textSecondary,
-                          fontSize: 15,
-                        ),
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Divider
-                      Container(
-                        height: 1,
-                        width: double.infinity,
-                        color: AppColors.border,
-                      ),
-
-                      const SizedBox(height: 16),
-
-                      // Accent chip
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.accent.withValues(alpha: 0.12),
-                          borderRadius: BorderRadius.circular(999),
-                        ),
-                        child: const Text(
-                          'Status: Success',
-                          style: TextStyle(
+                          child: const Icon(
+                            Icons.check_rounded,
                             color: AppColors.accent,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
+                            size: 40,
                           ),
                         ),
-                      ),
-
-                      const SizedBox(height: 24),
-
-                      // Action button
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => Navigator.pop(context),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.accent,
-                            foregroundColor: AppColors.textPrimary,
-                            elevation: 0,
-                            padding: const EdgeInsets.symmetric(vertical: 14),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12),
-                            ),
+                        const SizedBox(height: 24),
+                        const Text(
+                          'Transition Complete',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
                           ),
-                          child: const Text(
-                            'Go Back',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
+                        ),
+                        const SizedBox(height: 8),
+                        const Text(
+                          'The animation was executed successfully',
+                          style: TextStyle(
+                            color: AppColors.textSecondary,
+                            fontSize: 14,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        Container(
+                          width: double.infinity,
+                          height: 1,
+                          color: AppColors.border,
+                        ),
+                        const SizedBox(height: 24),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () => Navigator.pop(context),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: AppColors.accent,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: const Text(
+                              'Go Back',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
 
 // ============ Transition Data ============
 
-class TransitionItem {
-  final String name;
-  final String description;
-  final PageRouteBuilder Function(Widget page) route;
+// Hero Transitions (NEW)
+final heroTransitions = [
+  TransitionItem(
+    name: 'Hero Slide',
+    description: 'Slide with hero coordination',
+    route: (page) => HeroSlidePageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Hero Fade',
+    description: 'Fade with optional scale',
+    route: (page) => HeroFadePageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Hero Scale',
+    description: 'Scale from alignment point',
+    route: (page) => HeroScalePageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Hero Zoom',
+    description: 'Zoom with hero timing',
+    route: (page) => HeroZoomPageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Hero Container',
+    description: 'Material container transform',
+    route: (page) =>
+        HeroContainerTransformTransition(page: page, heroTag: 'demo'),
+    isNew: true,
+  ),
+];
 
-  const TransitionItem({
-    required this.name,
-    required this.description,
-    required this.route,
-  });
-}
+// 3D Transitions (with new additions)
+final threeDTransitions = [
+  TransitionItem(
+    name: 'Cube Horizontal',
+    description: '3D cube rotation on Y axis',
+    route: (page) => CubeHorizontalPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Cube Vertical',
+    description: '3D cube rotation on X axis',
+    route: (page) => CubeVerticalPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Inside Cube',
+    description: 'View from inside cube',
+    route: (page) => InsideCubePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Card Flip',
+    description: '3D card flip effect',
+    route: (page) => CardFlipPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Carousel',
+    description: 'Carousel rotation effect',
+    route: (page) => CarouselPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Cover Flow',
+    description: 'iTunes cover flow style',
+    route: (page) => CoverFlowPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Cylinder Wrap',
+    description: 'Cylindrical wrap effect',
+    route: (page) => CylinderWrapPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Perspective Zoom',
+    description: 'Perspective zoom with depth',
+    route: (page) => PerspectiveZoomPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Parallax Depth',
+    description: '3D parallax depth effect',
+    route: (page) => ParallaxDepthPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Fold',
+    description: 'Paper fold effect',
+    route: (page) => FoldPageTransition(page: page),
+  ),
+  // New 3D effects
+  TransitionItem(
+    name: 'Origami',
+    description: 'Paper folding effect',
+    route: (page) => OrigamiPageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Prism',
+    description: 'Triangular prism rotation',
+    route: (page) => PrismPageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Sphere',
+    description: 'Spherical mapping effect',
+    route: (page) => SpherePageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Z-Stack',
+    description: 'Depth stacking effect',
+    route: (page) => ZStackPageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Layered Depth',
+    description: 'Multi-layer parallax',
+    route: (page) => LayeredDepthPageTransition(page: page),
+    isNew: true,
+  ),
+  TransitionItem(
+    name: 'Hologram',
+    description: 'Futuristic hologram effect',
+    route: (page) => HologramPageTransition(page: page),
+    isNew: true,
+  ),
+];
 
+// Slide Transitions
 final slideTransitions = [
   TransitionItem(
     name: 'Slide',
@@ -929,7 +1347,7 @@ final slideTransitions = [
   ),
   TransitionItem(
     name: 'Push',
-    description: 'Push transition with previous page moving',
+    description: 'Push with previous page moving',
     route: (page) => PushPageTransition(page: page),
   ),
   TransitionItem(
@@ -964,6 +1382,7 @@ final slideTransitions = [
   ),
 ];
 
+// Fade Transitions
 final fadeTransitions = [
   TransitionItem(
     name: 'Fade',
@@ -1007,6 +1426,7 @@ final fadeTransitions = [
   ),
 ];
 
+// Scale Transitions
 final scaleTransitions = [
   TransitionItem(
     name: 'Scale',
@@ -1017,11 +1437,6 @@ final scaleTransitions = [
     name: 'Scale + Fade',
     description: 'Scale with fade effect',
     route: (page) => ScaleFadePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Shrink & Grow',
-    description: 'Old shrinks, new grows',
-    route: (page) => ShrinkGrowPageTransition(page: page),
   ),
   TransitionItem(
     name: 'Zoom In',
@@ -1035,18 +1450,23 @@ final scaleTransitions = [
   ),
   TransitionItem(
     name: 'Zoom In + Fade',
-    description: 'Zoom in with fade',
+    description: 'Zoom in with fade effect',
     route: (page) => ZoomInFadePageTransition(page: page),
   ),
   TransitionItem(
     name: 'Zoom Out + Fade',
-    description: 'Zoom out with fade',
+    description: 'Zoom out with fade effect',
     route: (page) => ZoomOutFadePageTransition(page: page),
   ),
   TransitionItem(
     name: 'Pop Scale',
-    description: 'Pop effect with overshoot',
+    description: 'Pop effect with elastic',
     route: (page) => PopScalePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Shrink & Grow',
+    description: 'Old shrinks, new grows',
+    route: (page) => ShrinkGrowPageTransition(page: page),
   ),
   TransitionItem(
     name: 'Scale + Rotation',
@@ -1060,6 +1480,7 @@ final scaleTransitions = [
   ),
 ];
 
+// Rotation Transitions
 final rotationTransitions = [
   TransitionItem(
     name: 'Rotation',
@@ -1087,11 +1508,6 @@ final rotationTransitions = [
     route: (page) => RotationScalePageTransition(page: page),
   ),
   TransitionItem(
-    name: 'Rotation + Scale + Fade',
-    description: 'Combined rotation effects',
-    route: (page) => RotationScaleFadePageTransition(page: page),
-  ),
-  TransitionItem(
     name: 'Spin',
     description: 'Spin entrance animation',
     route: (page) => SpinPageTransition(page: page),
@@ -1106,171 +1522,14 @@ final rotationTransitions = [
     description: 'Door opening effect',
     route: (page) => DoorRotationPageTransition(page: page),
   ),
-];
-
-final sizeTransitions = [
   TransitionItem(
-    name: 'Size',
-    description: 'Size-based transition',
-    route: (page) => SizePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Expand Horizontal',
-    description: 'Expand from left to right',
-    route: (page) => ExpandHorizontalPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Expand Vertical',
-    description: 'Expand from top to bottom',
-    route: (page) => ExpandVerticalPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Expand from Center',
-    description: 'Expand from center outward',
-    route: (page) => ExpandFromCenterPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Clip Rect',
-    description: 'Clip rectangle reveal',
-    route: (page) => ClipRectPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Align Size',
-    description: 'Aligned size transition',
-    route: (page) => AlignSizePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Unfold',
-    description: 'Unfold from corner',
-    route: (page) => UnfoldPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Split',
-    description: 'Split screen reveal',
-    route: (page) => SplitPageTransition(page: page),
+    name: 'Rotation All',
+    description: 'Rotation + Scale + Fade',
+    route: (page) => RotationScaleFadePageTransition(page: page),
   ),
 ];
 
-final materialTransitions = [
-  TransitionItem(
-    name: 'Shared Axis (Horizontal)',
-    description: 'Material shared axis X',
-    route: (page) => SharedAxisPageTransition(
-      page: page,
-      direction: SharedAxisDirection.horizontal,
-    ),
-  ),
-  TransitionItem(
-    name: 'Shared Axis (Vertical)',
-    description: 'Material shared axis Y',
-    route: (page) => SharedAxisPageTransition(
-      page: page,
-      direction: SharedAxisDirection.vertical,
-    ),
-  ),
-  TransitionItem(
-    name: 'Fade Through',
-    description: 'Material fade through',
-    route: (page) => FadeThroughMaterialPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Container Transform',
-    description: 'Material container transform',
-    route: (page) => ContainerTransformPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Elevation Scale',
-    description: 'Elevation with scale',
-    route: (page) => ElevationScalePageTransition(page: page),
-  ),
-];
-
-final iosTransitions = [
-  TransitionItem(
-    name: 'Cupertino Slide',
-    description: 'iOS default slide',
-    route: (page) => CupertinoSlidePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Modal Slide',
-    description: 'iOS modal presentation',
-    route: (page) => ModalSlidePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Page Curl',
-    description: 'Page curl effect',
-    route: (page) => PageCurlPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Sheet',
-    description: 'Bottom sheet style',
-    route: (page) => SheetPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Fullscreen Modal',
-    description: 'iOS fullscreen modal',
-    route: (page) => FullscreenModalPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'App Store Card',
-    description: 'App Store card expand',
-    route: (page) => AppStoreCardPageTransition(page: page),
-  ),
-];
-
-final threeDTransitions = [
-  TransitionItem(
-    name: 'Cube Horizontal',
-    description: '3D cube rotation X',
-    route: (page) => CubeHorizontalPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Cube Vertical',
-    description: '3D cube rotation Y',
-    route: (page) => CubeVerticalPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Inside Cube',
-    description: 'Inside cube view',
-    route: (page) => InsideCubePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Card Flip',
-    description: '3D card flip',
-    route: (page) => CardFlipPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Carousel',
-    description: 'Carousel effect',
-    route: (page) => CarouselPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Cover Flow',
-    description: 'iTunes cover flow',
-    route: (page) => CoverFlowPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Cylinder Wrap',
-    description: 'Cylindrical wrap',
-    route: (page) => CylinderWrapPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Perspective Zoom',
-    description: 'Perspective zoom effect',
-    route: (page) => PerspectiveZoomPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Parallax Depth',
-    description: '3D parallax depth',
-    route: (page) => ParallaxDepthPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Fold',
-    description: 'Paper fold effect',
-    route: (page) => FoldPageTransition(page: page),
-  ),
-];
-
+// Physics Transitions
 final physicsTransitions = [
   TransitionItem(
     name: 'Spring',
@@ -1319,6 +1578,163 @@ final physicsTransitions = [
   ),
 ];
 
+// iOS Transitions
+final iosTransitions = [
+  TransitionItem(
+    name: 'Cupertino Slide',
+    description: 'iOS default slide',
+    route: (page) => CupertinoSlidePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Modal Slide',
+    description: 'iOS modal presentation',
+    route: (page) => ModalSlidePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Page Curl',
+    description: 'Page curl effect',
+    route: (page) => PageCurlPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Sheet',
+    description: 'Bottom sheet style',
+    route: (page) => SheetPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Fullscreen Modal',
+    description: 'iOS fullscreen modal',
+    route: (page) => FullscreenModalPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'App Store Card',
+    description: 'App Store card expansion',
+    route: (page) => AppStoreCardPageTransition(page: page),
+  ),
+];
+
+// Material Transitions
+final materialTransitions = [
+  TransitionItem(
+    name: 'Shared Axis',
+    description: 'Material shared axis pattern',
+    route: (page) => SharedAxisPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Fade Through Material',
+    description: 'Material fade through',
+    route: (page) => FadeThroughMaterialPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Container Transform',
+    description: 'Container transform pattern',
+    route: (page) => ContainerTransformPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Elevation Scale',
+    description: 'Elevation with scale',
+    route: (page) => ElevationScalePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Material',
+    description: 'Standard Material transition',
+    route: (page) => MaterialPageTransition(page: page),
+  ),
+];
+
+// Modern UI Transitions
+final modernTransitions = [
+  TransitionItem(
+    name: 'Glassmorphism',
+    description: 'Frosted glass effect',
+    route: (page) => GlassmorphismPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Sliding Glass Panels',
+    description: 'Glass panel slide',
+    route: (page) => SlidingGlassPanelsPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Liquid Swipe',
+    description: 'Liquid swipe effect',
+    route: (page) => LiquidSwipePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Gooey',
+    description: 'Gooey blob effect',
+    route: (page) => GooeyPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Splash Reveal',
+    description: 'Splash reveal effect',
+    route: (page) => SplashRevealPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Neumorphism',
+    description: 'Soft UI transition',
+    route: (page) => NeumorphismPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Bubble Inflate',
+    description: 'Bubble inflate effect',
+    route: (page) => BubbleInflatePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Curtain Reveal',
+    description: 'Curtain opening effect',
+    route: (page) => CurtainRevealPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Wavy Edge',
+    description: 'Wavy edge reveal',
+    route: (page) => WavyEdgePageTransition(page: page),
+  ),
+];
+
+// Size Transitions
+final sizeTransitions = [
+  TransitionItem(
+    name: 'Expand Horizontal',
+    description: 'Expands from center horizontally',
+    route: (page) => ExpandHorizontalPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Expand Vertical',
+    description: 'Expands from center vertically',
+    route: (page) => ExpandVerticalPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Expand From Center',
+    description: 'Expands from center both axes',
+    route: (page) => ExpandFromCenterPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Clip Rect',
+    description: 'Clip rect reveal effect',
+    route: (page) => ClipRectPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Align Size',
+    description: 'Align-based size transition',
+    route: (page) => AlignSizePageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Split',
+    description: 'Split in two and expand',
+    route: (page) => SplitPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Unfold',
+    description: 'Unfold from center',
+    route: (page) => UnfoldPageTransition(page: page),
+  ),
+  TransitionItem(
+    name: 'Size',
+    description: 'Size from direction',
+    route: (page) => SizePageTransition(page: page),
+  ),
+];
+
+// Custom Transitions
 final customTransitions = [
   TransitionItem(
     name: 'Circular Reveal',
@@ -1342,7 +1758,7 @@ final customTransitions = [
   ),
   TransitionItem(
     name: 'Book Flip',
-    description: 'Book page flip',
+    description: 'Book page flip animation',
     route: (page) => BookFlipPageTransition(page: page),
   ),
   TransitionItem(
@@ -1372,54 +1788,7 @@ final customTransitions = [
   ),
 ];
 
-final modernTransitions = [
-  TransitionItem(
-    name: 'Glassmorphism',
-    description: 'Frosted glass effect',
-    route: (page) => GlassmorphismPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Sliding Glass Panels',
-    description: 'Glass panel slide',
-    route: (page) => SlidingGlassPanelsPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Liquid Swipe',
-    description: 'Liquid swipe effect',
-    route: (page) => LiquidSwipePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Wavy Edge',
-    description: 'Wavy edge reveal',
-    route: (page) => WavyEdgePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Gooey',
-    description: 'Gooey blob effect',
-    route: (page) => GooeyPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Splash Reveal',
-    description: 'Splash reveal effect',
-    route: (page) => SplashRevealPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Neumorphism',
-    description: 'Soft UI transition',
-    route: (page) => NeumorphismPageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Bubble Inflate',
-    description: 'Bubble inflate effect',
-    route: (page) => BubbleInflatePageTransition(page: page),
-  ),
-  TransitionItem(
-    name: 'Curtain Reveal',
-    description: 'Curtain opening effect',
-    route: (page) => CurtainRevealPageTransition(page: page),
-  ),
-];
-
+// Social Transitions
 final socialTransitions = [
   TransitionItem(
     name: 'Story',
@@ -1448,7 +1817,7 @@ final socialTransitions = [
   ),
   TransitionItem(
     name: 'Cross Fade Audio',
-    description: 'Spotify-like cross fade',
+    description: 'Spotify cross fade',
     route: (page) => CrossFadeAudioPageTransition(page: page),
   ),
   TransitionItem(
@@ -1478,6 +1847,7 @@ final socialTransitions = [
   ),
 ];
 
+// Accessibility Transitions
 final accessibilityTransitions = [
   TransitionItem(
     name: 'No Animation',

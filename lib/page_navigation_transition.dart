@@ -44,6 +44,10 @@ library page_navigation_transition;
 export 'src/core/enums.dart';
 export 'src/core/base_transition.dart';
 export 'src/core/transition_builder.dart';
+export 'src/core/performance_utils.dart';
+export 'src/core/curve_builder.dart';
+export 'src/core/transition_presets.dart';
+export 'src/core/named_route_support.dart';
 
 // Transition exports
 export 'src/transitions/slide_transitions.dart';
@@ -59,6 +63,7 @@ export 'src/transitions/custom_transitions.dart';
 export 'src/transitions/modern_transitions.dart';
 export 'src/transitions/social_transitions.dart';
 export 'src/transitions/accessibility_transitions.dart';
+export 'src/transitions/hero_transitions.dart';
 
 // Helper exports
 export 'src/helpers/navigation_extensions.dart';
